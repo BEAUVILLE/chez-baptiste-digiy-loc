@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
@@ -135,7 +135,7 @@
     display:flex;
     flex-direction:column;
     gap:8px;
-    margin-top:6px;
+    margin-top:14px;
   }
   .btn{
     border:none;
@@ -210,7 +210,7 @@
     border-radius:10px;
     border:1px solid var(--line);
     background:#020617;
-    color:var(--ink);
+    color:#f9fafb;
     font-size:13px;
   }
   .field input[type="date"]{
@@ -240,6 +240,65 @@
   a.inline-link:hover{
     text-decoration:underline;
   }
+
+  /* ==== DIGIY LOC PREMIUM : titres & labels bien lisibles ==== */
+  .digiy-title-strong {
+    font-size:18px;
+    font-weight:800;
+    color:#ffffff !important;
+  }
+  .digiy-label-strong {
+    font-size:14px;
+    font-weight:700;
+    color:#ffffff !important;
+  }
+  .digiy-black-strong {
+    font-size:16px;
+    font-weight:800;
+    color:#ffffff !important;
+  }
+
+  .card h2.digiy-title-strong + small{
+    color:#e5e7eb !important;
+    font-weight:600;
+  }
+  .hero-caption{
+    color:#e5e7eb !important;
+    font-weight:500;
+  }
+  .field label{
+    color:#ffffff !important;
+    font-weight:600 !important;
+  }
+  input::placeholder,
+  select{
+    color:#cbd5e1 !important;
+    font-weight:500;
+  }
+
+  /* Wave highlight */
+  .pay-highlight {
+    font-size:16px;
+    font-weight:700;
+    color:#ffffff;
+    background:rgba(250,204,21,0.15);
+    padding:6px 10px;
+    border-radius:10px;
+    display:inline-block;
+    margin-top:4px;
+    border:1px solid rgba(250,204,21,0.35);
+  }
+  .pay-number {
+    font-size:24px;
+    font-weight:900;
+    color:#22c55e; /* vert Wave */
+    letter-spacing:1px;
+  }
+  .pay-note {
+    font-size:18px;
+    font-weight:800;
+    color:#22c55e; /* "À utiliser dans votre application Wave" */
+  }
 </style>
 </head>
 <body>
@@ -252,6 +311,7 @@
   <main>
     <!-- HERO AVEC PHOTO + CTA -->
     <section class="hero">
+      <!-- Colonne gauche -->
       <div>
         <h1>Appartement CHEZ BAPTISTE — Saly</h1>
         <p>
@@ -275,6 +335,7 @@
         </div>
       </div>
 
+      <!-- Colonne droite -->
       <div>
         <div class="price-block">
           <h2>Tarifs CHEZ BAPTISTE</h2>
@@ -283,32 +344,66 @@
             <span><span>Semaine :</span><strong>175 000 F</strong></span>
             <span><span>Mois :</span><strong>450 000 F</strong></span>
           </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px;">
+          <div style="font-size:11px;margin-top:4px;color:var(--muted);">
             ⚡ Sénélec en sus selon consommation électrique.
           </div>
         </div>
 
+        <!-- BLOC WAVE PREMIUM -->
+        <div style="
+          margin-top:14px;
+          padding:16px;
+          border-radius:16px;
+          background:#0f172a;
+          border:2px solid #22c55e;
+          box-shadow:0 0 22px rgba(34,197,94,0.28);
+        ">
+          <div style="
+            font-size:20px;
+            font-weight:900;
+            color:#ffffff;
+            margin-bottom:8px;
+          ">
+            💳 Paiement direct propriétaire — Wave
+          </div>
+
+          <div class="pay-number">
+            +221 77 134 28 89
+          </div>
+
+          <div class="pay-note">
+            ✔ À utiliser dans votre application Wave
+          </div>
+
+          <div style="
+            margin-top:10px;
+            font-size:15px;
+            font-weight:700;
+            color:#ffffff;
+          ">
+            Propriétaire : Jean Baptiste Beauville
+          </div>
+        </div>
+        <!-- FIN BLOC WAVE -->
+
         <div class="cta-col">
           <!-- WhatsApp direct -->
-          <a class="btn btn-wa"
-             id="btnWa">
+          <a class="btn btn-wa" id="btnWa">
             💬 Réserver par WhatsApp
           </a>
 
           <!-- Appel direct -->
-          <a class="btn btn-call"
-             id="btnCall">
+          <a class="btn btn-call" id="btnCall">
             📞 Appeler le propriétaire
           </a>
 
-          <!-- Paiement DIGIY PAY LOC -->
-          <a class="btn"
-             style="background:#facc15;color:#111827;"
-             href="https://digiylyfe.com/digiy-pay-prive/?m=CHEZ-BAPTISTE-SN-LOC"
-             target="_blank" rel="noopener"
-             id="btnPay">
-            💳 Payer l’acompte (DIGIY PAY)
-          </a>
+          <!-- Enregistrer mode de paiement (Wave) -->
+          <button class="btn"
+                  style="background:#facc15;color:#111827;"
+                  type="button"
+                  id="btnSavePayMethod">
+            📝 Enregistrer mes infos (Wave)
+          </button>
 
           <!-- Vidéo présentation -->
           <a class="btn btn-video"
@@ -324,20 +419,23 @@
     <section class="layout">
       <!-- Simulateur séjour -->
       <article class="card">
-        <h2>Simuler votre séjour</h2>
-        <small>Choisissez vos dates et le nombre de personnes pour voir une estimation.</small>
+        <h2 class="digiy-title-strong">Simuler votre séjour</h2>
+        <small class="digiy-label-strong">
+          Choisissez vos dates, le nombre de personnes.
+          Paiement par Wave direct propriétaire — <strong>Jean Baptiste Beauville</strong>.
+        </small>
 
         <div class="form-grid">
           <div class="field">
-            <label>Date d'arrivée</label>
+            <label class="digiy-label-strong">Date d'arrivée</label>
             <input type="date" id="dateIn">
           </div>
           <div class="field">
-            <label>Date de départ</label>
+            <label class="digiy-label-strong">Date de départ</label>
             <input type="date" id="dateOut">
           </div>
           <div class="field">
-            <label>Nombre de personnes</label>
+            <label class="digiy-label-strong">Nombre de personnes</label>
             <select id="guests">
               <option value="1">1</option>
               <option value="2">2</option>
@@ -346,8 +444,16 @@
             </select>
           </div>
           <div class="field">
-            <label>Votre nom</label>
+            <label class="digiy-label-strong">Votre nom</label>
             <input type="text" id="clientName" placeholder="Votre nom">
+          </div>
+          <div class="field">
+            <label class="digiy-label-strong">Votre téléphone</label>
+            <input type="tel" id="clientPhone" placeholder="+221 ...">
+          </div>
+          <div class="field">
+            <label class="digiy-label-strong">Mode de paiement</label>
+            <input type="text" value="Wave (paiement direct au propriétaire)" disabled>
           </div>
         </div>
 
@@ -357,20 +463,22 @@
         </div>
       </article>
 
-      <!-- Infos pratiques + liens cliquables -->
+      <!-- Infos pratiques + coordonnées & Wave -->
       <article class="card">
-        <h2>Infos pratiques & contacts</h2>
-        <small>Quelques points importants pour votre séjour.</small>
+        <h2 class="digiy-title-strong">Infos pratiques & contacts</h2>
+        <small class="digiy-label-strong">Quelques points importants pour votre séjour.</small>
 
-        <ul style="margin:8px 0 0 16px; padding:0; font-size:13px; color:var(--muted);">
+        <ul style="margin:8px 0 0 16px; padding:0; font-size:13px;">
           <li>Quartier paisible, sans bruyance.</li>
           <li>Appartement pour 4 personnes maximum.</li>
           <li>Tarifs : 30 000 F / nuit · 175 000 F / semaine · 450 000 F / mois.</li>
           <li>Sénélec en sus selon consommation.</li>
           <li>Réservation et confirmation par WhatsApp ou appel direct.</li>
+          <li class="digiy-black-strong">Propriétaire : Jean Baptiste Beauville</li>
+          <li>Paiement direct au propriétaire par Wave (faible commission).</li>
         </ul>
 
-        <div style="margin-top:10px;font-size:12px;color:var(--muted);line-height:1.5;">
+        <div style="margin-top:10px;font-size:12px;line-height:1.6;">
           WhatsApp principal : 
           <a class="inline-link"
              href="https://wa.me/221771342889"
@@ -385,11 +493,16 @@
             +221 77 876 57 86
           </a><br><br>
 
+          <strong class="digiy-label-strong">Numéro Wave (paiement) :</strong><br>
+          <span class="pay-number">+221 77 134 28 89</span><br>
+          <span class="pay-note">✔ À utiliser dans votre application Wave</span>
+          <br><br>
+
           Appel direct : 
           <a class="inline-link"
              href="tel:+221771342889">
             📞 +221 77 134 28 89
-          </a><br>
+          </a><br><br>
 
           Vidéo de présentation : 
           <a class="inline-link"
@@ -419,13 +532,22 @@ function formatMoney(x){
   return (x||0).toLocaleString("fr-FR") + " F";
 }
 
-const dateIn = document.getElementById("dateIn");
-const dateOut = document.getElementById("dateOut");
-const guests = document.getElementById("guests");
-const clientName = document.getElementById("clientName");
-const summary = document.getElementById("summary");
-const btnWa = document.getElementById("btnWa");
-const btnCall = document.getElementById("btnCall");
+// CONSTANTES PROPRIO / PAIEMENT
+const OWNER_NAME       = "Jean Baptiste Beauville";
+const OWNER_WA_ID      = "221771342889";      // ID WhatsApp (sans +)
+const OWNER_PHONE_MAIN = "+221771342889";
+const OWNER_PHONE_SEC  = "+221778765786";
+const WAVE_PHONE       = "+221771342889";     // Wave uniquement
+
+const dateIn      = document.getElementById("dateIn");
+const dateOut     = document.getElementById("dateOut");
+const guests      = document.getElementById("guests");
+const clientName  = document.getElementById("clientName");
+const clientPhone = document.getElementById("clientPhone");
+const summary     = document.getElementById("summary");
+const btnWa       = document.getElementById("btnWa");
+const btnCall     = document.getElementById("btnCall");
+const btnSavePayMethod = document.getElementById("btnSavePayMethod");
 
 function getNights(){
   if(!dateIn.value || !dateOut.value) return 0;
@@ -458,26 +580,73 @@ function updateSummary(){
   el.addEventListener("change", updateSummary);
 });
 
-// WhatsApp bouton dynamique (avec résumé)
+// Libellé mode de paiement (Wave fixed)
+function getPayMethodLabel(){
+  return "Wave (" + WAVE_PHONE + ")";
+}
+
+// WhatsApp bouton dynamique (demande de réservation)
 btnWa.addEventListener("click", ()=>{
   const nights = getNights();
   const g = Number(guests.value||"1");
   const name = clientName.value.trim() || "Client";
+  const phoneClient = clientPhone.value.trim() || "Non communiqué";
+
   let txt = "Bonjour, je souhaite une r\u00e9servation pour l'appartement CHEZ BAPTISTE \u00e0 Saly.%0A";
   txt += "- Nom : " + name + "%0A";
+  txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
   if(dateIn.value && dateOut.value){
     txt += "- Dates : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
   }
   txt += "- Nombre de personnes : " + g + "%0A";
+  txt += "- Mode de paiement pr\u00e9vu : " + getPayMethodLabel() + "%0A";
   txt += "- Tarifs DIGIY LOC : Nuit 30 000 F / Semaine 175 000 F / Mois 450 000 F (S\u00e9n\u00e9lec en sus).%0A";
   txt += "%0AMerci de me confirmer la disponibilit\u00e9.";
-  const url = "https://wa.me/221771342889?text=" + txt;
+  const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
   window.open(url, "_blank");
 });
 
-// Appel direct JS (fallback au href tel éventuel)
+// Appel direct
 btnCall.addEventListener("click", ()=>{
-  window.location.href = "tel:+221771342889";
+  window.location.href = "tel:" + OWNER_PHONE_MAIN;
+});
+
+// Enregistrer le mode de paiement (Wave) + données client
+btnSavePayMethod.addEventListener("click", ()=>{
+  const nights = getNights();
+  const g = Number(guests.value||"1");
+  const name = clientName.value.trim() || "Client";
+  const phoneClient = clientPhone.value.trim() || "Non communiqué";
+  const methodLabel = getPayMethodLabel();
+
+  const bookingData = {
+    logementId: "CHEZ-BAPTISTE-SN-LOC",
+    ownerName: OWNER_NAME,
+    ownerPhone: OWNER_PHONE_MAIN,
+    clientName: name,
+    clientPhone: phoneClient,
+    dateIn: dateIn.value || null,
+    dateOut: dateOut.value || null,
+    nights,
+    guests: g,
+    payMethod: "wave",
+    payMethodLabel: methodLabel,
+    createdAt: new Date().toISOString()
+  };
+
+  console.log("DIGIY LOC — booking enregistré (local, à connecter à la base) :", bookingData);
+
+  let txt = "Bonjour, je viens d'enregistrer mes infos pour CHEZ BAPTISTE \u00e0 Saly.%0A";
+  txt += "- Nom : " + name + "%0A";
+  txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
+  if(dateIn.value && dateOut.value){
+    txt += "- S\u00e9jour : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
+  }
+  txt += "- Nombre de personnes : " + g + "%0A";
+  txt += "- Mode de paiement pr\u00e9vu : " + methodLabel + "%0A";
+  txt += "%0AJe ferai le r\u00e8glement directement via mon application Wave.";
+  const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
+  window.open(url, "_blank");
 });
 </script>
 </body>
