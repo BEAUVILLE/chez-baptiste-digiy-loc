@@ -1,653 +1,670 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<title>CHEZ BAPTISTE — Appartement à Saly</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-  :root{
-    --bg:#0b1020;
-    --card:#020617;
-    --card-soft:#020617;
-    --accent:#facc15;
-    --accent-soft:#f97316;
-    --ink:#f9fafb;
-    --muted:#9ca3af;
-    --line:#1f2937;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0; padding:0;
-    background:radial-gradient(circle at top,#111827 0,#020617 55%);
-    color:var(--ink);
-    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  }
-  .app{
-    max-width:980px;
-    margin:0 auto;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-  }
-  header{
-    padding:14px 16px;
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    align-items:center;
-  }
-  .brand{
-    font-weight:700;
-    font-size:18px;
-  }
-  .brand span{
-    color:var(--accent);
-  }
-  .tag{
-    font-size:11px;
-    border-radius:999px;
-    border:1px solid rgba(148,163,184,.6);
-    padding:4px 10px;
-    white-space:nowrap;
-    color:var(--muted);
-  }
-  main{flex:1;padding:0 12px 16px;}
+  <meta charset="utf-8">
+  <title>DIGIY LOC — HUB DIRECT PROPRIÉTAIRES</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    :root{
+      --bg:#020617;
+      --bg-soft:#020617;
+      --card:#020617;
+      --accent:#facc15;
+      --accent-soft:#f97316;
+      --ink:#f9fafb;
+      --muted:#9ca3af;
+      --line:#1f2937;
+      --wave:#22c55e;
+    }
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+    }
+    body{
+      background:radial-gradient(circle at top,#111827 0,#020617 55%);
+      color:var(--ink);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      padding:12px;
+    }
+    .app{
+      width:100%;
+      max-width:1120px;
+      background:radial-gradient(circle at top,#020617,#020617 50%,#020617 100%);
+      border-radius:22px;
+      border:1px solid rgba(148,163,184,0.35);
+      box-shadow:0 20px 50px rgba(0,0,0,0.6);
+      padding:14px 14px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
 
-  .hero{
-    background:linear-gradient(135deg,#111827,#020617);
-    border-radius:18px;
-    padding:16px;
-    border:1px solid rgba(250,204,21,.4);
-    display:grid;
-    grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
-    gap:16px;
-    align-items:flex-start;
-    box-shadow:0 20px 40px rgba(0,0,0,.7);
-    margin-bottom:16px;
-  }
-  @media(max-width:900px){
-    .hero{grid-template-columns:1fr;}
-  }
-  .hero h1{
-    margin:0 0 6px;
-    font-size:22px;
-  }
-  .hero p{
-    margin:0 0 8px;
-    font-size:13px;
-    color:var(--muted);
-  }
-  .chips{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-    margin-top:6px;
-  }
-  .chip{
-    font-size:11px;
-    border-radius:999px;
-    border:1px solid rgba(148,163,184,.6);
-    padding:4px 8px;
-    color:var(--muted);
-  }
+    header{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .logo-badge{
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      background:radial-gradient(circle at 20% 0%, #fef9c3, #facc15 45%, #854d0e 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      font-size:21px;
+      color:#111827;
+      box-shadow:0 0 0 1px rgba(250,250,250,0.6),0 10px 20px rgba(180,120,30,0.6);
+      position:relative;
+    }
+    .logo-badge::after{
+      content:"";
+      position:absolute;
+      top:-2px;
+      right:-2px;
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:#22c55e;
+      border:2px solid #020617;
+      box-shadow:0 0 10px rgba(34,197,94,0.8);
+    }
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .brand-text span.label{
+      font-size:10px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .brand-text span.title{
+      font-size:18px;
+      font-weight:800;
+      background:linear-gradient(135deg,#ffffff,var(--accent));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .brand-text span.subtitle{
+      font-size:11px;
+      color:var(--muted);
+    }
 
-  .hero-media{
-    margin-top:10px;
-  }
-  .hero-photo{
-    width:100%;
-    max-height:220px;
-    border-radius:14px;
-    object-fit:cover;
-    display:block;
-    border:1px solid #1f2937;
-  }
-  .hero-caption{
-    margin-top:4px;
-    font-size:11px;
-    color:var(--muted);
-  }
+    .header-right{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:flex-end;
+      font-size:11px;
+      color:var(--muted);
+      text-align:right;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      justify-content:flex-end;
+    }
+    .pill{
+      border-radius:999px;
+      padding:4px 9px;
+      border:1px solid rgba(148,163,184,0.7);
+      font-size:10px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(15,23,42,0.9);
+      color:var(--muted);
+    }
+    .pill .dot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:radial-gradient(circle at 30% 0%,#bbf7d0,#22c55e);
+      box-shadow:0 0 0 2px rgba(34,197,94,0.4);
+    }
+    .pill-gold{
+      border-color:rgba(250,204,21,0.8);
+      background:rgba(23,23,23,0.95);
+      color:#eab308;
+    }
 
-  .price-block{
-    background:#020617;
-    border-radius:14px;
-    border:1px solid #1f2937;
-    padding:10px 12px;
-    font-size:13px;
-  }
-  .price-block h2{
-    margin:0 0 4px;
-    font-size:14px;
-    color:var(--accent);
-  }
-  .tarifs{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    margin:6px 0;
-  }
-  .tarifs span{
-    display:flex;
-    justify-content:space-between;
-  }
+    /* Filtres */
+    .filters{
+      margin-top:4px;
+      padding:8px 10px;
+      border-radius:14px;
+      border:1px solid rgba(31,41,55,0.9);
+      background:radial-gradient(circle at top left,#020617,#020617);
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      font-size:12px;
+    }
+    .filters label{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .filters select,
+    .filters input{
+      background:#020617;
+      border-radius:999px;
+      border:1px solid #1f2937;
+      color:#e5e7eb;
+      padding:6px 9px;
+      font-size:12px;
+      outline:none;
+      min-width:120px;
+    }
+    .filters input::placeholder{
+      color:#6b7280;
+    }
 
-  .cta-col{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    margin-top:14px;
-  }
-  .btn{
-    border:none;
-    border-radius:999px;
-    padding:9px 12px;
-    font-size:14px;
-    font-weight:600;
-    cursor:pointer;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:6px;
-    text-decoration:none;
-  }
-  .btn-wa{
-    background:#16a34a;
-    color:#ecfdf3;
-  }
-  .btn-call{
-    background:#0f172a;
-    color:#e5e7eb;
-    border:1px solid #1f2937;
-  }
-  .btn-video{
-    background:#111827;
-    color:#e5e7eb;
-    border:1px solid #334155;
-    font-size:13px;
-  }
+    /* Grille logements */
+    .grid{
+      margin-top:4px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:12px;
+    }
+    .card{
+      background:radial-gradient(circle at top left,#020617,#020617 50%,#020617 100%);
+      border-radius:18px;
+      border:1px solid #1f2937;
+      box-shadow:0 14px 30px rgba(0,0,0,0.7);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:260px;
+    }
+    .card-header-img{
+      position:relative;
+      height:150px;
+      overflow:hidden;
+      background:#020617;
+    }
+    .card-header-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:brightness(0.9);
+      transition:transform 0.3s ease, filter 0.3s ease;
+    }
+    .card:hover .card-header-img img{
+      transform:scale(1.03);
+      filter:brightness(1);
+    }
+    .badge-city{
+      position:absolute;
+      left:8px;
+      bottom:8px;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:10px;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.7);
+      color:#e5e7eb;
+      backdrop-filter:blur(6px);
+    }
+    .badge-direct{
+      position:absolute;
+      right:8px;
+      top:8px;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:10px;
+      background:rgba(34,197,94,0.14);
+      border:1px solid rgba(34,197,94,0.7);
+      color:#bbf7d0;
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
 
-  .layout{
-    display:grid;
-    grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
-    gap:12px;
-  }
-  @media(max-width:900px){
-    .layout{grid-template-columns:1fr;}
-  }
+    .card-body{
+      padding:10px 11px 11px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      flex:1;
+    }
+    .card-owner{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .card-title{
+      font-size:15px;
+      font-weight:800;
+      color:#f9fafb;
+    }
+    .card-meta{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .price-line{
+      margin-top:2px;
+      font-size:13px;
+      font-weight:700;
+      color:var(--accent);
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:4px;
+      margin-top:4px;
+    }
+    .chip{
+      font-size:10px;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid #1f2937;
+      color:#9ca3af;
+      background:rgba(15,23,42,0.9);
+    }
+    .chip-wave{
+      border-color:rgba(34,197,94,0.8);
+      color:#bbf7d0;
+      background:rgba(22,163,74,0.15);
+    }
 
-  .card{
-    background:var(--card);
-    border-radius:16px;
-    border:1px solid var(--line);
-    box-shadow:0 16px 32px rgba(0,0,0,.6);
-    padding:12px;
-  }
-  .card h2{
-    margin:0 0 4px;
-    font-size:16px;
-  }
-  .card small{
-    font-size:12px;
-    color:var(--muted);
-  }
+    .wave-line{
+      margin-top:4px;
+      font-size:11px;
+      color:#bbf7d0;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .wave-number{
+      font-size:14px;
+      font-weight:800;
+      color:var(--wave);
+    }
 
-  .form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-top:8px;
-  }
-  .field label{
-    display:block;
-    font-size:11px;
-    color:var(--muted);
-    margin-bottom:2px;
-  }
-  .field input,
-  .field select{
-    width:100%;
-    padding:7px 9px;
-    border-radius:10px;
-    border:1px solid var(--line);
-    background:#020617;
-    color:#f9fafb;
-    font-size:13px;
-  }
-  .field input[type="date"]{
-    color-scheme:dark;
-  }
+    .card-footer{
+      margin-top:8px;
+      display:flex;
+      justify-content:space-between;
+      gap:6px;
+    }
+    .btn-card{
+      flex:1;
+      border:none;
+      border-radius:999px;
+      padding:7px 9px;
+      font-size:12px;
+      font-weight:600;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+      text-decoration:none;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent),#fbbf24);
+      color:#111827;
+      box-shadow:0 8px 16px rgba(250,204,21,0.35);
+    }
+    .btn-wa{
+      background:rgba(22,163,74,0.14);
+      border:1px solid rgba(34,197,94,0.9);
+      color:#bbf7d0;
+    }
 
-  .summary{
-    margin-top:8px;
-    font-size:13px;
-    color:var(--muted);
-  }
-  .summary strong{
-    color:var(--accent-soft);
-  }
+    /* Résumé bas */
+    .bottom-note{
+      margin-top:6px;
+      font-size:11px;
+      color:var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      flex-wrap:wrap;
+    }
 
-  footer{
-    padding:8px 14px 14px;
-    font-size:11px;
-    color:var(--muted);
-    text-align:center;
-  }
-
-  a.inline-link{
-    color:var(--accent-soft);
-    text-decoration:none;
-  }
-  a.inline-link:hover{
-    text-decoration:underline;
-  }
-
-  /* ==== DIGIY LOC PREMIUM : titres & labels bien lisibles ==== */
-  .digiy-title-strong {
-    font-size:18px;
-    font-weight:800;
-    color:#ffffff !important;
-  }
-  .digiy-label-strong {
-    font-size:14px;
-    font-weight:700;
-    color:#ffffff !important;
-  }
-  .digiy-black-strong {
-    font-size:16px;
-    font-weight:800;
-    color:#ffffff !important;
-  }
-
-  .card h2.digiy-title-strong + small{
-    color:#e5e7eb !important;
-    font-weight:600;
-  }
-  .hero-caption{
-    color:#e5e7eb !important;
-    font-weight:500;
-  }
-  .field label{
-    color:#ffffff !important;
-    font-weight:600 !important;
-  }
-  input::placeholder,
-  select{
-    color:#cbd5e1 !important;
-    font-weight:500;
-  }
-
-  /* Wave highlight */
-  .pay-highlight {
-    font-size:16px;
-    font-weight:700;
-    color:#ffffff;
-    background:rgba(250,204,21,0.15);
-    padding:6px 10px;
-    border-radius:10px;
-    display:inline-block;
-    margin-top:4px;
-    border:1px solid rgba(250,204,21,0.35);
-  }
-  .pay-number {
-    font-size:24px;
-    font-weight:900;
-    color:#22c55e; /* vert Wave */
-    letter-spacing:1px;
-  }
-  .pay-note {
-    font-size:18px;
-    font-weight:800;
-    color:#22c55e; /* "À utiliser dans votre application Wave" */
-  }
-</style>
+    @media (max-width:720px){
+      header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .header-right{
+        align-items:flex-start;
+        text-align:left;
+      }
+    }
+  </style>
 </head>
 <body>
 <div class="app">
+  <!-- HEADER -->
   <header>
-    <div class="brand">CHEZ BAPTISTE — <span>DIGIY LOC</span></div>
-    <div class="tag">Appartement à Saly · 4 personnes max · Quartier paisible</div>
+    <div class="brand">
+      <div class="logo-badge">L</div>
+      <div class="brand-text">
+        <span class="label">DIGIY LOC</span>
+        <span class="title">HUB DIRECT PROPRIÉTAIRES</span>
+        <span class="subtitle">Appartements & villas • 0% commission • Paiement direct par Wave</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="pill-row">
+        <div class="pill">
+          <span class="dot"></span>
+          0% commission plateforme
+        </div>
+        <div class="pill pill-gold">
+          Paiement direct propriétaire (Wave)
+        </div>
+      </div>
+      <div>
+        Compare sur Booking si tu veux, ici tu vois <strong>le prix direct</strong> sans intermédiaire.
+      </div>
+    </div>
   </header>
 
-  <main>
-    <!-- HERO AVEC PHOTO + CTA -->
-    <section class="hero">
-      <!-- Colonne gauche -->
-      <div>
-        <h1>Appartement CHEZ BAPTISTE — Saly</h1>
-        <p>
-          Appartement confortable dans un quartier paisible de Saly, sans bruyance, idéal pour les séjours
-          en famille ou entre amis. Jusqu’à 4 personnes, à quelques minutes des commodités et de la vie de Saly.
-        </p>
-        <div class="chips">
-          <span class="chip">4 personnes max</span>
-          <span class="chip">Quartier calme</span>
-          <span class="chip">Sénélec en sus</span>
-          <span class="chip">Réservation directe propriétaire</span>
-        </div>
+  <!-- FILTRES SIMPLES -->
+  <section class="filters">
+    <label for="filterCity">Ville :</label>
+    <select id="filterCity">
+      <option value="all">Toutes</option>
+      <option value="Saly">Saly</option>
+      <option value="Ngaparou">Ngaparou</option>
+      <option value="Somone">Somone</option>
+      <option value="Dakar">Dakar</option>
+    </select>
 
-        <div class="hero-media">
-          <img src="https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png"
-               alt="Appartement CHEZ BAPTISTE à Saly"
-               class="hero-photo">
-          <div class="hero-caption">
-            Vue de l’appartement CHEZ BAPTISTE — Saly (visuel DIGIY).
-          </div>
-        </div>
-      </div>
+    <label for="filterSearch">Recherche :</label>
+    <input id="filterSearch" type="text" placeholder="Nom, proprio, mot-clé…">
 
-      <!-- Colonne droite -->
-      <div>
-        <div class="price-block">
-          <h2>Tarifs CHEZ BAPTISTE</h2>
-          <div class="tarifs">
-            <span><span>Nuit :</span><strong>30 000 F</strong></span>
-            <span><span>Semaine :</span><strong>175 000 F</strong></span>
-            <span><span>Mois :</span><strong>450 000 F</strong></span>
-          </div>
-          <div style="font-size:11px;margin-top:4px;color:var(--muted);">
-            ⚡ Sénélec en sus selon consommation électrique.
-          </div>
-        </div>
+    <span style="margin-left:auto;font-size:11px;color:var(--muted);" id="resultCount">
+      — logements affichés
+    </span>
+  </section>
 
-        <!-- BLOC WAVE PREMIUM -->
-        <div style="
-          margin-top:14px;
-          padding:16px;
-          border-radius:16px;
-          background:#0f172a;
-          border:2px solid #22c55e;
-          box-shadow:0 0 22px rgba(34,197,94,0.28);
-        ">
-          <div style="
-            font-size:20px;
-            font-weight:900;
-            color:#ffffff;
-            margin-bottom:8px;
-          ">
-            💳 Paiement direct propriétaire — Wave
-          </div>
+  <!-- GRILLE LOGEMENTS -->
+  <section class="grid" id="grid"></section>
 
-          <div class="pay-number">
-            +221 77 134 28 89
-          </div>
-
-          <div class="pay-note">
-            ✔ À utiliser dans votre application Wave
-          </div>
-
-          <div style="
-            margin-top:10px;
-            font-size:15px;
-            font-weight:700;
-            color:#ffffff;
-          ">
-            Propriétaire : Jean Baptiste Beauville
-          </div>
-        </div>
-        <!-- FIN BLOC WAVE -->
-
-        <div class="cta-col">
-          <!-- WhatsApp direct -->
-          <a class="btn btn-wa" id="btnWa">
-            💬 Réserver par WhatsApp
-          </a>
-
-          <!-- Appel direct -->
-          <a class="btn btn-call" id="btnCall">
-            📞 Appeler le propriétaire
-          </a>
-
-          <!-- Enregistrer mode de paiement (Wave) -->
-          <button class="btn"
-                  style="background:#facc15;color:#111827;"
-                  type="button"
-                  id="btnSavePayMethod">
-            📝 Enregistrer mes infos (Wave)
-          </button>
-
-          <!-- Vidéo présentation -->
-          <a class="btn btn-video"
-             href="https://drive.google.com/file/d/1oEVpt1R7fWBAJnKZlPu_fp2gqS-Z1kni/view?usp=sharing"
-             target="_blank" rel="noopener">
-            🎥 Voir la vidéo de présentation
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- LAYOUT BAS -->
-    <section class="layout">
-      <!-- Simulateur séjour -->
-      <article class="card">
-        <h2 class="digiy-title-strong">Simuler votre séjour</h2>
-        <small class="digiy-label-strong">
-          Choisissez vos dates, le nombre de personnes.
-          Paiement par Wave direct propriétaire — <strong>Jean Baptiste Beauville</strong>.
-        </small>
-
-        <div class="form-grid">
-          <div class="field">
-            <label class="digiy-label-strong">Date d'arrivée</label>
-            <input type="date" id="dateIn">
-          </div>
-          <div class="field">
-            <label class="digiy-label-strong">Date de départ</label>
-            <input type="date" id="dateOut">
-          </div>
-          <div class="field">
-            <label class="digiy-label-strong">Nombre de personnes</label>
-            <select id="guests">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4" selected>4</option>
-            </select>
-          </div>
-          <div class="field">
-            <label class="digiy-label-strong">Votre nom</label>
-            <input type="text" id="clientName" placeholder="Votre nom">
-          </div>
-          <div class="field">
-            <label class="digiy-label-strong">Votre téléphone</label>
-            <input type="tel" id="clientPhone" placeholder="+221 ...">
-          </div>
-          <div class="field">
-            <label class="digiy-label-strong">Mode de paiement</label>
-            <input type="text" value="Wave (paiement direct au propriétaire)" disabled>
-          </div>
-        </div>
-
-        <div class="summary" id="summary">
-          Sélectionnez des dates pour voir le nombre de nuits et une estimation en tarif nuit (30 000 F / nuit).
-          Les tarifs semaine (175 000 F) et mois (450 000 F) pourront être ajustés avec le propriétaire.
-        </div>
-      </article>
-
-      <!-- Infos pratiques + coordonnées & Wave -->
-      <article class="card">
-        <h2 class="digiy-title-strong">Infos pratiques & contacts</h2>
-        <small class="digiy-label-strong">Quelques points importants pour votre séjour.</small>
-
-        <ul style="margin:8px 0 0 16px; padding:0; font-size:13px;">
-          <li>Quartier paisible, sans bruyance.</li>
-          <li>Appartement pour 4 personnes maximum.</li>
-          <li>Tarifs : 30 000 F / nuit · 175 000 F / semaine · 450 000 F / mois.</li>
-          <li>Sénélec en sus selon consommation.</li>
-          <li>Réservation et confirmation par WhatsApp ou appel direct.</li>
-          <li class="digiy-black-strong">Propriétaire : Jean Baptiste Beauville</li>
-          <li>Paiement direct au propriétaire par Wave (faible commission).</li>
-        </ul>
-
-        <div style="margin-top:10px;font-size:12px;line-height:1.6;">
-          WhatsApp principal : 
-          <a class="inline-link"
-             href="https://wa.me/221771342889"
-             target="_blank" rel="noopener">
-            +221 77 134 28 89
-          </a><br>
-
-          WhatsApp / téléphone secondaire : 
-          <a class="inline-link"
-             href="https://wa.me/221778765786"
-             target="_blank" rel="noopener">
-            +221 77 876 57 86
-          </a><br><br>
-
-          <strong class="digiy-label-strong">Numéro Wave (paiement) :</strong><br>
-          <span class="pay-number">+221 77 134 28 89</span><br>
-          <span class="pay-note">✔ À utiliser dans votre application Wave</span>
-          <br><br>
-
-          Appel direct : 
-          <a class="inline-link"
-             href="tel:+221771342889">
-            📞 +221 77 134 28 89
-          </a><br><br>
-
-          Vidéo de présentation : 
-          <a class="inline-link"
-             href="https://drive.google.com/file/d/1oEVpt1R7fWBAJnKZlPu_fp2gqS-Z1kni/view?usp=sharing"
-             target="_blank" rel="noopener">
-            🎥 Voir la vidéo
-          </a><br>
-
-          Visuel DIGIY : 
-          <a class="inline-link"
-             href="https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png"
-             target="_blank" rel="noopener">
-            📸 Voir la photo
-          </a>
-        </div>
-      </article>
-    </section>
-  </main>
-
-  <footer>
-    CHEZ BAPTISTE — Saly · Module DIGIY LOC personnalisé · Contact WhatsApp : +221 77 134 28 89 / +221 77 876 57 86
-  </footer>
+  <!-- NOTE BAS -->
+  <section class="bottom-note">
+    <div>
+      DIGIY LOC — Les prix affichés sont proposés <strong>directement par les propriétaires</strong>.  
+      Tu peux vérifier sur Booking / Airbnb, ici tu payes en direct, sans commission OTA.
+    </div>
+    <div>
+      Propriétaire intéressé ? Contacte le HUB DIGIY pour être référencé dans la grille (Wave first).
+    </div>
+  </section>
 </div>
 
 <script>
-function formatMoney(x){
-  return (x||0).toLocaleString("fr-FR") + " F";
-}
+  // ===== DONNÉES LOGEMENTS (CHEZ BAPTISTE + FAUX PROPRIOS POUR MEUBLER) =====
+  const ACCOMMODATIONS = [
+    {
+      id: "chez-baptiste",
+      name: "CHEZ BAPTISTE — Appartement",
+      city: "Saly",
+      country: "Sénégal",
+      owner: "Jean Baptiste Beauville",
+      priceFrom: 30000,
+      maxPersons: 4,
+      bedrooms: 2,
+      bathrooms: 1,
+      wavePhone: "+221771342889",
+      whatsapp: "221771342889",
+      image: "https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png",
+      link: "https://beauville.github.io/chez-baptiste-digiy-loc/", // ajuste si besoin
+      tags: ["Quartier calme","Sénélec en sus","Réservation directe","Wave uniquement"],
+      featured: true
+    },
+    {
+      id: "residence-soleil",
+      name: "Résidence Soleil — Studio vue jardin",
+      city: "Ngaparou",
+      country: "Sénégal",
+      owner: "Awa & Famille",
+      priceFrom: 25000,
+      maxPersons: 2,
+      bedrooms: 1,
+      bathrooms: 1,
+      wavePhone: "+221770000001",
+      whatsapp: "221770000001",
+      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg",
+      link: "#",
+      tags: ["2 pers","Proche plage","Wi-Fi","Parking"],
+      featured: false
+    },
+    {
+      id: "villa-mbotay",
+      name: "Villa Mbotay — Piscine privée",
+      city: "Somone",
+      country: "Sénégal",
+      owner: "Mamadou & Khady",
+      priceFrom: 85000,
+      maxPersons: 8,
+      bedrooms: 4,
+      bathrooms: 3,
+      wavePhone: "+221770000002",
+      whatsapp: "221770000002",
+      image: "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg",
+      link: "#",
+      tags: ["Piscine privée","Famille & amis","Climatisation"],
+      featured: false
+    },
+    {
+      id: "dakarlibre6",
+      name: "Appart Dakar Liberté 6 — Standing",
+      city: "Dakar",
+      country: "Sénégal",
+      owner: "Monsieur Ndiaye",
+      priceFrom: 60000,
+      maxPersons: 4,
+      bedrooms: 2,
+      bathrooms: 2,
+      wavePhone: "+221770000003",
+      whatsapp: "221770000003",
+      image: "https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg",
+      link: "#",
+      tags: ["Dakar centre","Climatisation","Wi-Fi","Parking sous-sol"],
+      featured: false
+    },
+    {
+      id: "yoff-breeze",
+      name: "Yoff Breeze — Bord de mer",
+      city: "Dakar",
+      country: "Sénégal",
+      owner: "Fatou",
+      priceFrom: 40000,
+      maxPersons: 3,
+      bedrooms: 1,
+      bathrooms: 1,
+      wavePhone: "+221770000004",
+      whatsapp: "221770000004",
+      image: "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg",
+      link: "#",
+      tags: ["Vue mer","Surf spot","Navette aéroport"],
+      featured: false
+    },
+    {
+      id: "popenguine-lodge",
+      name: "Popenguine Lodge — Eco maison",
+      city: "Ngaparou",
+      country: "Sénégal",
+      owner: "Collectif Popenguine",
+      priceFrom: 28000,
+      maxPersons: 3,
+      bedrooms: 1,
+      bathrooms: 1,
+      wavePhone: "+221770000005",
+      whatsapp: "221770000005",
+      image: "https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg",
+      link: "#",
+      tags: ["Eco-friendly","Calme","Long séjour"],
+      featured: false
+    }
+  ];
 
-// CONSTANTES PROPRIO / PAIEMENT
-const OWNER_NAME       = "Jean Baptiste Beauville";
-const OWNER_WA_ID      = "221771342889";      // ID WhatsApp (sans +)
-const OWNER_PHONE_MAIN = "+221771342889";
-const OWNER_PHONE_SEC  = "+221778765786";
-const WAVE_PHONE       = "+221771342889";     // Wave uniquement
+  const gridEl        = document.getElementById("grid");
+  const filterCityEl  = document.getElementById("filterCity");
+  const filterSearchEl= document.getElementById("filterSearch");
+  const resultCountEl = document.getElementById("resultCount");
 
-const dateIn      = document.getElementById("dateIn");
-const dateOut     = document.getElementById("dateOut");
-const guests      = document.getElementById("guests");
-const clientName  = document.getElementById("clientName");
-const clientPhone = document.getElementById("clientPhone");
-const summary     = document.getElementById("summary");
-const btnWa       = document.getElementById("btnWa");
-const btnCall     = document.getElementById("btnCall");
-const btnSavePayMethod = document.getElementById("btnSavePayMethod");
-
-function getNights(){
-  if(!dateIn.value || !dateOut.value) return 0;
-  const d1 = new Date(dateIn.value);
-  const d2 = new Date(dateOut.value);
-  const diff = d2 - d1;
-  if(isNaN(diff) || diff <= 0) return 0;
-  return Math.round(diff / (1000*60*60*24));
-}
-
-function updateSummary(){
-  const nights = getNights();
-  const g = Number(guests.value||"1");
-  if(!nights){
-    summary.innerHTML = "Sélectionnez des dates d'arrivée et de départ pour voir le nombre de nuits et une estimation en tarif nuit (30 000 F / nuit).";
-    return;
+  function formatPrice(n){
+    return (n||0).toLocaleString("fr-FR") + " F / nuit";
   }
-  const totalNight = nights * 30000;
-  summary.innerHTML = `
-    <div>Séjour de <strong>${nights}</strong> nuit(s) pour <strong>${g}</strong> personne(s) (max 4).</div>
-    <div>Estimation en tarif nuit (30 000 F / nuit) : <strong>${formatMoney(totalNight)}</strong>.</div>
-    <div style="margin-top:4px;font-size:12px;">
-      Tarifs indicatifs : <strong>175 000 F</strong> la semaine · <strong>450 000 F</strong> le mois (Sénélec en sus).<br>
-      Le tarif final sera confirmé avec le propriétaire lors de l’échange WhatsApp.
-    </div>
-  `;
-}
 
-[dateIn, dateOut, guests].forEach(el=>{
-  el.addEventListener("change", updateSummary);
-});
+  function matchFilters(acc){
+    const city = filterCityEl.value;
+    const q    = (filterSearchEl.value || "").toLowerCase().trim();
 
-// Libellé mode de paiement (Wave fixed)
-function getPayMethodLabel(){
-  return "Wave (" + WAVE_PHONE + ")";
-}
+    if(city !== "all" && acc.city !== city) return false;
+    if(!q) return true;
 
-// WhatsApp bouton dynamique (demande de réservation)
-btnWa.addEventListener("click", ()=>{
-  const nights = getNights();
-  const g = Number(guests.value||"1");
-  const name = clientName.value.trim() || "Client";
-  const phoneClient = clientPhone.value.trim() || "Non communiqué";
-
-  let txt = "Bonjour, je souhaite une r\u00e9servation pour l'appartement CHEZ BAPTISTE \u00e0 Saly.%0A";
-  txt += "- Nom : " + name + "%0A";
-  txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
-  if(dateIn.value && dateOut.value){
-    txt += "- Dates : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
+    const haystack = [
+      acc.name,
+      acc.city,
+      acc.owner,
+      ...(acc.tags || [])
+    ].join(" ").toLowerCase();
+    return haystack.includes(q);
   }
-  txt += "- Nombre de personnes : " + g + "%0A";
-  txt += "- Mode de paiement pr\u00e9vu : " + getPayMethodLabel() + "%0A";
-  txt += "- Tarifs DIGIY LOC : Nuit 30 000 F / Semaine 175 000 F / Mois 450 000 F (S\u00e9n\u00e9lec en sus).%0A";
-  txt += "%0AMerci de me confirmer la disponibilit\u00e9.";
-  const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
-  window.open(url, "_blank");
-});
 
-// Appel direct
-btnCall.addEventListener("click", ()=>{
-  window.location.href = "tel:" + OWNER_PHONE_MAIN;
-});
+  function renderGrid(){
+    gridEl.innerHTML = "";
+    const filtered = ACCOMMODATIONS.filter(matchFilters);
 
-// Enregistrer le mode de paiement (Wave) + données client
-btnSavePayMethod.addEventListener("click", ()=>{
-  const nights = getNights();
-  const g = Number(guests.value||"1");
-  const name = clientName.value.trim() || "Client";
-  const phoneClient = clientPhone.value.trim() || "Non communiqué";
-  const methodLabel = getPayMethodLabel();
+    resultCountEl.textContent = filtered.length + " logement(s) affiché(s)";
 
-  const bookingData = {
-    logementId: "CHEZ-BAPTISTE-SN-LOC",
-    ownerName: OWNER_NAME,
-    ownerPhone: OWNER_PHONE_MAIN,
-    clientName: name,
-    clientPhone: phoneClient,
-    dateIn: dateIn.value || null,
-    dateOut: dateOut.value || null,
-    nights,
-    guests: g,
-    payMethod: "wave",
-    payMethodLabel: methodLabel,
-    createdAt: new Date().toISOString()
-  };
+    filtered
+      .sort((a,b)=> (b.featured?1:0) - (a.featured?1:0))
+      .forEach(acc=>{
+        const card = document.createElement("article");
+        card.className = "card";
 
-  console.log("DIGIY LOC — booking enregistré (local, à connecter à la base) :", bookingData);
+        // Header image
+        const header = document.createElement("div");
+        header.className = "card-header-img";
+        const img = document.createElement("img");
+        img.src = acc.image;
+        img.alt = acc.name + " — " + acc.city;
+        header.appendChild(img);
 
-  let txt = "Bonjour, je viens d'enregistrer mes infos pour CHEZ BAPTISTE \u00e0 Saly.%0A";
-  txt += "- Nom : " + name + "%0A";
-  txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
-  if(dateIn.value && dateOut.value){
-    txt += "- S\u00e9jour : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
+        const badgeCity = document.createElement("div");
+        badgeCity.className = "badge-city";
+        badgeCity.textContent = acc.city + " · " + acc.country;
+        header.appendChild(badgeCity);
+
+        const badgeDirect = document.createElement("div");
+        badgeDirect.className = "badge-direct";
+        badgeDirect.innerHTML = "<span>0% comm.</span>";
+        header.appendChild(badgeDirect);
+
+        card.appendChild(header);
+
+        // Body
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        const owner = document.createElement("div");
+        owner.className = "card-owner";
+        owner.textContent = "Géré par " + acc.owner;
+        body.appendChild(owner);
+
+        const title = document.createElement("div");
+        title.className = "card-title";
+        title.textContent = acc.name;
+        body.appendChild(title);
+
+        const meta = document.createElement("div");
+        meta.className = "card-meta";
+        meta.textContent = `${acc.maxPersons} pers max · ${acc.bedrooms} ch. · ${acc.bathrooms} sdb`;
+        body.appendChild(meta);
+
+        const price = document.createElement("div");
+        price.className = "price-line";
+        price.textContent = "À partir de " + formatPrice(acc.priceFrom);
+        body.appendChild(price);
+
+        const chips = document.createElement("div");
+        chips.className = "chips";
+        (acc.tags || []).forEach(t=>{
+          const c = document.createElement("span");
+          c.className = "chip";
+          c.textContent = t;
+          chips.appendChild(c);
+        });
+        const cWave = document.createElement("span");
+        cWave.className = "chip chip-wave";
+        cWave.textContent = "Paiement Wave direct";
+        chips.appendChild(cWave);
+        body.appendChild(chips);
+
+        const waveLine = document.createElement("div");
+        waveLine.className = "wave-line";
+        const w1 = document.createElement("div");
+        w1.textContent = "Numéro Wave propriétaire :";
+        const w2 = document.createElement("div");
+        w2.className = "wave-number";
+        w2.textContent = acc.wavePhone;
+        waveLine.appendChild(w1);
+        waveLine.appendChild(w2);
+        body.appendChild(waveLine);
+
+        // Footer boutons
+        const footer = document.createElement("div");
+        footer.className = "card-footer";
+
+        const btnFiche = document.createElement("a");
+        btnFiche.className = "btn-card btn-primary";
+        btnFiche.textContent = "Voir la fiche";
+        btnFiche.href = acc.link || "#";
+        btnFiche.target = acc.link && acc.link !== "#" ? "_blank" : "_self";
+        footer.appendChild(btnFiche);
+
+        const btnWa = document.createElement("button");
+        btnWa.className = "btn-card btn-wa";
+        btnWa.type = "button";
+        btnWa.textContent = "WhatsApp";
+        btnWa.addEventListener("click", ()=>{
+          const waId = acc.whatsapp || "";
+          const txt = encodeURIComponent(
+            `Bonjour, je suis intéressé par ${acc.name} à ${acc.city}. Pouvez-vous me donner les disponibilités et tarifs ?`
+          );
+          if(waId){
+            window.open(`https://wa.me/${waId}?text=${txt}`,"_blank");
+          }
+        });
+        footer.appendChild(btnWa);
+
+        body.appendChild(footer);
+        card.appendChild(body);
+
+        gridEl.appendChild(card);
+      });
   }
-  txt += "- Nombre de personnes : " + g + "%0A";
-  txt += "- Mode de paiement pr\u00e9vu : " + methodLabel + "%0A";
-  txt += "%0AJe ferai le r\u00e8glement directement via mon application Wave.";
-  const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
-  window.open(url, "_blank");
-});
+
+  filterCityEl.addEventListener("change", renderGrid);
+  filterSearchEl.addEventListener("input", renderGrid);
+
+  // INIT
+  renderGrid();
 </script>
 </body>
 </html>
