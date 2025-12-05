@@ -2,10 +2,9 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>CHEZ BAPTISTE — DIGIY LOC • Saly Joseph</title>
+  <title>CHEZ BAPTISTE — Saly Joseph • DIGIY LOC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="CHEZ BAPTISTE — Appartement meublé à Saly Joseph, quartier calme près de l’école française. Standard 30 000 F/jour, 175 000 F/semaine, 550 000 F/mois selon saison. Partenaire officiel DIGIY LOC.">
-  <meta name="theme-color" content="#020617">
+  <meta name="description" content="CHEZ ASTOU & BAPTISTE — Maison chaleureuse à Saly Joseph, non loin de l'école française. Location courte ou longue durée, dès 30 000 F/jour. Réservez en direct, 0% commission.">
 
   <style>
     :root{
@@ -13,12 +12,12 @@
       --bg-soft:#020818;
       --card:#030712;
       --accent-main:#f97316;
-      --accent-gold:#facc15;
       --accent-soft:#fed7aa;
+      --accent-green:#22c55e;
       --ink:#f9fafb;
-      --muted:#9ca3af;
-      --border:#1f2937;
-      --shadow-soft:0 22px 55px rgba(0,0,0,0.9);
+      --muted:#cbd5f5;
+      --line:#1f2937;
+      --shadow-soft:0 20px 45px rgba(15,23,42,0.9);
     }
 
     *{
@@ -30,700 +29,480 @@
     body{
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
       background:
-        radial-gradient(circle at top left,rgba(249,115,22,0.18),transparent 60%),
-        radial-gradient(circle at bottom right,rgba(37,99,235,0.22),transparent 60%),
+        radial-gradient(circle at top,#1f2937,transparent 60%),
+        radial-gradient(circle at bottom,#0b1120,transparent 55%),
         var(--bg);
       color:var(--ink);
       min-height:100vh;
       display:flex;
       justify-content:center;
-      padding:16px;
-      -webkit-font-smoothing:antialiased;
+      padding:1.5rem 1rem 2rem;
     }
 
     .page{
       width:100%;
-      max-width:1080px;
-      background:radial-gradient(circle at top,rgba(15,23,42,0.9),rgba(2,6,23,0.98));
-      border-radius:28px;
+      max-width:900px;
+      background:rgba(9,9,20,0.96);
+      border-radius:24px;
       border:1px solid rgba(148,163,184,0.6);
       box-shadow:var(--shadow-soft);
-      overflow:hidden;
-      position:relative;
+      padding:1.5rem 1.4rem 2rem;
     }
 
-    .page::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 12% 0,rgba(250,204,21,0.18),transparent 55%),
-        radial-gradient(circle at 92% 100%,rgba(59,130,246,0.2),transparent 55%);
-      opacity:0.65;
-      pointer-events:none;
+    @media (min-width:768px){
+      body{padding:2.5rem 1.5rem;}
+      .page{padding:2.2rem 2rem 2.4rem;}
     }
 
-    .inner{
-      position:relative;
-      z-index:1;
-      padding:20px 20px 22px;
-    }
-
-    @media(min-width:768px){
-      .inner{padding:26px 26px 26px;}
-    }
-
-    /* HEADER */
-    .header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:1rem;
-      margin-bottom:1.6rem;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:0.9rem;
-    }
-
-    .logo{
-      width:52px;
-      height:52px;
-      border-radius:18px;
-      background:radial-gradient(circle at 30% 20%,#fef3c7,#f97316);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:2rem;
-      font-weight:900;
-      color:#111827;
-      box-shadow:0 14px 32px rgba(249,115,22,0.8);
-    }
-
-    .brand-text-main{
-      font-size:0.78rem;
-      letter-spacing:0.22em;
-      text-transform:uppercase;
-      color:var(--muted);
-      font-weight:700;
-    }
-
-    .brand-text-title{
-      font-size:1.1rem;
-      font-weight:900;
-      background:linear-gradient(135deg,#f97316,#facc15);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .digiy-tag{
-      font-size:0.78rem;
-      padding:0.3rem 0.8rem;
-      border-radius:999px;
-      border:1px solid rgba(250,204,21,0.9);
-      color:#fefce8;
-      background:rgba(15,23,42,0.9);
-      text-transform:uppercase;
-      letter-spacing:0.14em;
-      font-weight:800;
-      display:inline-flex;
-      gap:0.4rem;
-      align-items:center;
-    }
-
-    .digiy-tag span{
-      font-size:0.9rem;
-    }
-
-    /* HERO LAYOUT */
-    .hero{
-      display:grid;
-      grid-template-columns:minmax(0,1.5fr) minmax(0,1.2fr);
-      gap:1.4rem;
-      margin-bottom:1.6rem;
-    }
-
-    @media(max-width:840px){
-      .hero{
-        grid-template-columns:1fr;
-      }
-    }
-
-    /* TEXTE HERO */
-    .title-main{
-      font-size:1.6rem;
-      line-height:1.3;
-      font-weight:900;
+    /* TITRES & TEXTE — PLUS GROS SUR MOBILE */
+    h1{
+      font-size:1.9rem;
+      line-height:1.2;
       margin-bottom:0.4rem;
     }
 
-    @media(min-width:768px){
-      .title-main{font-size:1.9rem;}
+    h2{
+      font-size:1.3rem;
+      margin-bottom:0.6rem;
     }
 
-    .title-main span{
+    p,li,span,div{
+      font-size:0.98rem;
+    }
+
+    @media (max-width:480px){
+      body{font-size:1.05rem;}
+      h1{font-size:2.1rem;}
+      h2{font-size:1.4rem;}
+      p,li,span,div{font-size:1.02rem;}
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:0.4rem;
+      padding:0.3rem 0.7rem;
+      border-radius:999px;
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      border:1px solid rgba(252,211,77,0.9);
+      background:rgba(251,191,36,0.1);
       color:var(--accent-soft);
-    }
-
-    .subtitle{
-      font-size:0.95rem;
-      color:var(--ink);
       margin-bottom:0.7rem;
     }
 
-    .subtitle span{
-      color:var(--accent-gold);
-      font-weight:700;
+    .hero-header{
+      display:flex;
+      gap:1rem;
+      align-items:flex-start;
+      margin-bottom:1.2rem;
     }
 
-    .location-line{
+    .hero-logo{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      background:radial-gradient(circle at 30% 15%,#fef3c7,#f97316);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.7rem;
+      font-weight:900;
+      color:#111827;
+      box-shadow:0 14px 30px rgba(249,115,22,0.8);
+    }
+
+    .hero-subtitle{
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .tagline{
+      margin-top:0.4rem;
+      color:var(--accent-soft);
+      font-weight:600;
+    }
+
+    .pill-row{
       display:flex;
       flex-wrap:wrap;
-      gap:0.4rem 0.9rem;
-      align-items:center;
-      font-size:0.85rem;
-      color:var(--muted);
-      margin-bottom:0.9rem;
+      gap:0.4rem;
+      margin:0.4rem 0 1.1rem;
     }
 
-    .location-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:0.35rem;
-      padding:0.28rem 0.7rem;
+    .pill{
+      padding:0.25rem 0.6rem;
       border-radius:999px;
-      background:rgba(15,23,42,0.9);
       border:1px solid rgba(148,163,184,0.7);
       font-size:0.78rem;
       text-transform:uppercase;
       letter-spacing:0.12em;
-    }
-
-    .location-pill strong{
-      color:var(--accent-soft);
-      font-weight:800;
-    }
-
-    /* PRIX */
-    .price-card{
-      margin-top:0.5rem;
-      padding:0.85rem 0.95rem;
-      border-radius:16px;
-      border:1px solid rgba(250,204,21,0.9);
-      background:radial-gradient(circle at top left,rgba(250,204,21,0.18),transparent 60%),
-                 rgba(15,23,42,0.96);
-      font-size:0.9rem;
-    }
-
-    .price-title{
-      font-size:0.78rem;
-      text-transform:uppercase;
-      letter-spacing:0.16em;
-      color:#fef9c3;
-      margin-bottom:0.4rem;
-      font-weight:700;
-    }
-
-    .price-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:0.7rem 1.3rem;
-      align-items:baseline;
-    }
-
-    .price-item{
-      display:flex;
-      flex-direction:column;
-      gap:0.1rem;
-    }
-
-    .price-label{
-      font-size:0.78rem;
-      text-transform:uppercase;
-      letter-spacing:0.12em;
       color:var(--muted);
     }
 
-    .price-value{
-      font-size:1.05rem;
+    .pill-strong{
+      border-color:rgba(34,197,94,1);
+      color:#bbf7d0;
+      background:rgba(22,163,74,0.24);
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:2.1fr 1.4fr;
+      gap:1.2rem;
+      margin-bottom:1.4rem;
+    }
+
+    @media (max-width:768px){
+      .grid-2{grid-template-columns:1fr;}
+    }
+
+    .card{
+      background:linear-gradient(145deg,#020617,#02081a);
+      border-radius:18px;
+      border:1px solid rgba(31,41,55,0.95);
+      padding:1rem 1rem 1.1rem;
+    }
+
+    @media (min-width:768px){
+      .card{padding:1.1rem 1.3rem 1.2rem;}
+    }
+
+    .price-main{
+      font-size:1.35rem;
       font-weight:800;
       color:var(--accent-soft);
+      margin-bottom:0.5rem;
     }
 
     .price-note{
-      margin-top:0.4rem;
-      font-size:0.8rem;
+      font-size:0.9rem;
+      color:var(--muted);
+      margin-bottom:0.6rem;
+    }
+
+    .price-list{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:0.2rem;
+      margin-bottom:0.4rem;
+    }
+
+    .price-list li{
+      font-weight:600;
+    }
+
+    .price-list li span{
+      color:var(--accent-soft);
+      font-weight:700;
+    }
+
+    .info-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.6rem 1.2rem;
+      margin-top:0.6rem;
+      font-size:0.9rem;
       color:var(--muted);
     }
 
-    /* CTA */
-    .cta-row{
-      margin-top:1rem;
+    .info-label{
+      font-weight:600;
+      color:var(--ink);
+    }
+
+    .badge-green{
+      display:inline-flex;
+      align-items:center;
+      gap:0.4rem;
+      padding:0.28rem 0.6rem;
+      border-radius:999px;
+      border:1px solid rgba(34,197,94,0.9);
+      background:rgba(22,163,74,0.25);
+      font-size:0.8rem;
+      color:#bbf7d0;
+      font-weight:600;
+      margin-top:0.5rem;
+    }
+
+    /* BLOCS VIDÉO & PHOTO — BIEN VISIBLES */
+    .media-block{
+      margin-top:0.8rem;
+      border-top:1px dashed rgba(148,163,184,0.6);
+      padding-top:0.7rem;
       display:flex;
-      flex-wrap:wrap;
+      flex-direction:column;
       gap:0.6rem;
     }
 
+    .media-line{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:0.5rem;
+      padding:0.6rem 0.7rem;
+      border-radius:12px;
+      background:rgba(15,23,42,0.95);
+      border:1px solid rgba(55,65,81,0.9);
+    }
+
+    .media-label{
+      display:flex;
+      align-items:center;
+      gap:0.45rem;
+      font-weight:700;
+    }
+
+    .media-label span.emoji{
+      font-size:1.2rem;
+    }
+
     .btn{
-      border-radius:999px;
-      border:none;
-      padding:0.7rem 1.3rem;
-      font-size:0.9rem;
-      font-weight:800;
       display:inline-flex;
       align-items:center;
-      gap:0.5rem;
+      justify-content:center;
+      border:none;
+      border-radius:999px;
+      padding:0.55rem 1.2rem;
+      font-size:0.9rem;
+      font-weight:700;
       cursor:pointer;
       text-decoration:none;
-      font-family:inherit;
       white-space:nowrap;
     }
 
     .btn-primary{
       background:linear-gradient(135deg,#f97316,#ea580c);
       color:#111827;
-      box-shadow:0 14px 36px rgba(249,115,22,0.8);
+      box-shadow:0 10px 26px rgba(249,115,22,0.8);
     }
 
     .btn-outline{
-      background:rgba(15,23,42,0.95);
-      color:var(--ink);
+      background:transparent;
       border:1px solid rgba(148,163,184,0.9);
-    }
-
-    .btn-outline:hover{
-      border-color:var(--accent-soft);
-    }
-
-    .btn-secondary{
-      background:rgba(15,23,42,0.95);
-      color:var(--accent-soft);
-      border:1px solid rgba(250,204,21,0.85);
-    }
-
-    .btn small{
-      font-size:0.76rem;
-      font-weight:700;
-      opacity:0.85;
-    }
-
-    /* CARTE DROITE */
-    .card{
-      border-radius:18px;
-      border:1px solid rgba(148,163,184,0.6);
-      background:radial-gradient(circle at top,rgba(15,23,42,0.9),rgba(3,7,18,0.98));
-      padding:0.9rem 1rem 1rem;
-    }
-
-    .card-title{
-      font-size:0.9rem;
-      text-transform:uppercase;
-      letter-spacing:0.16em;
       color:var(--muted);
-      margin-bottom:0.6rem;
-      font-weight:700;
     }
 
-    .card-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:0.4rem;
-      padding:0.25rem 0.7rem;
-      border-radius:999px;
-      background:rgba(21,128,61,0.25);
-      border:1px solid rgba(34,197,94,0.9);
-      font-size:0.75rem;
-      color:#bbf7d0;
-      font-weight:700;
-      margin-bottom:0.6rem;
+    @media (max-width:480px){
+      .media-line{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .btn,
+      .btn-primary,
+      .btn-outline{
+        width:100%;
+        justify-content:center;
+        font-size:0.95rem;
+        padding:0.65rem 1.3rem;
+      }
     }
 
-    .card-text{
-      font-size:0.86rem;
-      color:var(--ink);
+    /* SECTION DÉTAILS & ÉQUIPEMENTS */
+    .section{
+      margin-top:1.4rem;
+    }
+
+    .section p{
+      color:var(--muted);
       line-height:1.7;
-      margin-bottom:0.7rem;
     }
 
-    .card-text span{
-      color:var(--accent-gold);
-      font-weight:700;
-    }
-
-    .bullet-list{
+    .equip-list{
       list-style:none;
-      font-size:0.82rem;
-      color:var(--muted);
-      display:flex;
-      flex-direction:column;
-      gap:0.25rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:0.35rem 0.9rem;
+      margin-top:0.4rem;
     }
 
-    .bullet-list li::before{
+    .equip-list li::before{
       content:"• ";
       color:var(--accent-soft);
     }
 
-    /* GALERIE */
-    .gallery{
-      margin-top:1.3rem;
+    /* CONTACT */
+    .contact-grid{
       display:grid;
-      grid-template-columns:2fr 1.3fr;
-      gap:0.7rem;
+      grid-template-columns:1.5fr 1.5fr;
+      gap:0.9rem;
+      margin-top:0.7rem;
     }
 
-    @media(max-width:720px){
-      .gallery{grid-template-columns:1fr;}
+    @media (max-width:640px){
+      .contact-grid{grid-template-columns:1fr;}
     }
 
-    .gallery-main,
-    .gallery-side{
-      border-radius:18px;
-      border:1px solid var(--border);
-      background:linear-gradient(135deg,rgba(15,23,42,0.98),rgba(3,7,18,0.98));
-      padding:0.7rem;
-    }
-
-    .gallery-tag{
-      font-size:0.78rem;
-      text-transform:uppercase;
-      letter-spacing:0.16em;
+    .contact-line{
+      font-size:0.96rem;
       color:var(--muted);
-      margin-bottom:0.4rem;
     }
 
-    .gallery-photo{
-      border-radius:14px;
-      border:1px solid rgba(15,23,42,1);
-      background:radial-gradient(circle at top left,rgba(248,250,252,0.04),transparent 60%),
-                 #020617;
-      height:170px;
+    .contact-cta{
       display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:0.86rem;
-      color:var(--muted);
-      text-align:center;
-      padding:0.8rem;
+      flex-wrap:wrap;
+      gap:0.6rem;
+      margin-top:0.6rem;
     }
 
-    @media(min-width:900px){
-      .gallery-photo{height:210px;}
+    .btn-call{
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      color:#022c22;
     }
 
-    .gallery-note{
-      margin-top:0.35rem;
-      font-size:0.78rem;
-      color:var(--muted);
+    .btn-wa{
+      border:1px solid rgba(34,197,94,0.8);
+      color:#bbf7d0;
+      background:rgba(6,95,70,0.3);
     }
 
-    .gallery-grid-2{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:0.5rem;
-    }
-
-    .gallery-pill{
+    .disclaimer{
+      margin-top:1.2rem;
       font-size:0.8rem;
-      padding:0.45rem 0.55rem;
-      border-radius:12px;
-      border:1px solid var(--border);
-      color:var(--ink);
-      background:rgba(15,23,42,0.96);
-    }
-
-    /* SECTION INFOS */
-    .info-section{
-      margin-top:1.6rem;
-      padding-top:1.2rem;
-      border-top:1px solid rgba(30,64,175,0.7);
-      display:grid;
-      grid-template-columns:1.6fr 1.2fr;
-      gap:1.4rem;
-    }
-
-    @media(max-width:840px){
-      .info-section{grid-template-columns:1fr;}
-    }
-
-    .info-block-title{
-      font-size:0.9rem;
-      text-transform:uppercase;
-      letter-spacing:0.18em;
       color:var(--muted);
-      margin-bottom:0.5rem;
-      font-weight:700;
-    }
-
-    .info-text{
-      font-size:0.86rem;
-      color:var(--ink);
-      line-height:1.7;
-      margin-bottom:0.6rem;
-    }
-
-    .info-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-      gap:0.5rem;
-      margin-top:0.4rem;
-      font-size:0.8rem;
-    }
-
-    .info-item-label{
-      text-transform:uppercase;
-      letter-spacing:0.14em;
-      color:var(--muted);
-      font-size:0.75rem;
-      margin-bottom:0.1rem;
-    }
-
-    .info-item-value{
-      color:var(--ink);
-      font-weight:600;
-    }
-
-    .badge-digiy{
-      display:inline-flex;
-      align-items:center;
-      gap:0.35rem;
-      padding:0.35rem 0.7rem;
-      border-radius:999px;
-      border:1px solid rgba(59,130,246,0.9);
-      background:rgba(15,23,42,0.95);
-      color:#bfdbfe;
-      font-size:0.78rem;
-      font-weight:700;
-      margin-bottom:0.5rem;
-    }
-
-    .fiche-link{
-      display:inline-flex;
-      align-items:center;
-      gap:0.45rem;
-      text-decoration:none;
-      margin-top:0.3rem;
-    }
-
-    .fiche-link span{
-      font-size:0.85rem;
-      font-weight:800;
-    }
-
-    .fiche-link small{
-      display:block;
-      font-size:0.75rem;
-      color:var(--muted);
-    }
-
-    /* FOOTER */
-    footer{
-      margin-top:1.4rem;
-      padding-top:0.9rem;
-      border-top:1px solid rgba(30,64,175,0.75);
-      font-size:0.78rem;
-      color:var(--muted);
-      text-align:center;
-    }
-
-    footer strong{
-      color:var(--accent-soft);
+      opacity:0.85;
     }
   </style>
 </head>
 <body>
-<div class="page">
-  <div class="inner">
-    <!-- HEADER -->
-    <header class="header">
-      <div class="brand">
-        <div class="logo">∞</div>
+  <main class="page">
+    <!-- HEADER / HERO -->
+    <header class="hero">
+      <div class="hero-header">
+        <div class="hero-logo">∞</div>
         <div>
-          <div class="brand-text-main">DIGIY LOC • PARTENAIRE OFFICIEL</div>
-          <div class="brand-text-title">CHEZ ASTOU & BAPTISTE — Saly</div>
-        </div>
-      </div>
-      <div>
-        <div class="digiy-tag">
-          <span>🦅</span> CERTIFIÉ DIGIYLYFE • 0% COMMISSION
+          <div class="badge">DIGIY LOC — PARTENAIRE VITRINE</div>
+          <h1>CHEZ ASTOU & BAPTISTE</h1>
+          <div class="hero-subtitle">
+            Maison chaleureuse à <strong>Saly Joseph</strong>, non loin de l'école française.  
+            Idéale pour les séjours en famille, entre amis ou en télétravail au calme.
+          </div>
+          <div class="tagline">
+            0% commission • Réservation en direct avec les propriétaires.
+          </div>
+          <div class="pill-row">
+            <span class="pill pill-strong">Saly Joseph</span>
+            <span class="pill">Proche école française</span>
+            <span class="pill">Location courte & longue durée</span>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- HERO -->
-    <section class="hero">
-      <!-- COLONNE GAUCHE -->
-      <div>
-        <h1 class="title-main">
-          Appartement meublé <span>CHEZ BAPTISTE</span><br>Saly Joseph, quartier calme.
-        </h1>
-        <p class="subtitle">
-          Un appartement chaleureux, pensé pour les séjours en famille, en couple ou entre amis.
-          <span>Vous êtes à Saly, mais vous vous sentez chez vous.</span>
-        </p>
-
-        <div class="location-line">
-          <div class="location-pill">
-            📍 <strong>Saly Joseph</strong> — non loin de l’école française
-          </div>
-          <div class="location-pill">
-            🌊 Accès rapide à la station balnéaire & aux plages
-          </div>
-        </div>
-
-        <div class="price-card">
-          <div class="price-title">Tarifs standard (partenaire DIGIY LOC)</div>
-          <div class="price-row">
-            <div class="price-item">
-              <div class="price-label">Par jour</div>
-              <div class="price-value">30 000 F CFA</div>
-            </div>
-            <div class="price-item">
-              <div class="price-label">Par semaine</div>
-              <div class="price-value">175 000 F CFA</div>
-            </div>
-            <div class="price-item">
-              <div class="price-label">Par mois</div>
-              <div class="price-value">550 000 F CFA</div>
-            </div>
-          </div>
-          <div class="price-note">
-            Selon saison et durée : ajustements possibles en direct avec le propriétaire.
-          </div>
-        </div>
-
-        <div class="cta-row">
-          <!-- Appel principal -->
-          <a href="tel:+221771342889" class="btn btn-primary">
-            📞 Appeler Astou & Baptiste
-            <small>+221 77 134 2889</small>
-          </a>
-
-          <!-- Second numéro -->
-          <a href="tel:+221778765785" class="btn btn-outline">
-            ☎️ Ligne directe
-            <small>+221 77 876 5785</small>
-          </a>
-
-          <!-- WhatsApp -->
-          <a href="https://wa.me/221771342889?text=Bonjour%2C%20je%20souhaite%20r%C3%A9server%20CHEZ%20BAPTISTE%20%C3%A0%20Saly%20Joseph." class="btn btn-outline">
-            💬 WhatsApp
-            <small>Réservation & infos</small>
-          </a>
-        </div>
-      </div>
-
-      <!-- COLONNE DROITE -->
-      <aside class="card">
-        <div class="card-title">Expérience CHEZ BAPTISTE</div>
-        <div class="card-badge">
-          ✅ Partenaire validé DIGIY LOC
-        </div>
-        <p class="card-text">
-          Ici, on ne loue pas juste un logement : on vous confie une maison
-          tenue avec soin, dans un quartier <span>calme et accessible</span>,
-          idéal pour se reposer, travailler ou télétravailler au soleil.
-        </p>
-        <ul class="bullet-list">
-          <li>Quartier Saly Joseph, non loin de l’école française</li>
-          <li>Environnement résidentiel calme, proche des axes et commerces</li>
-          <li>Accès rapide à la station balnéaire de Saly & aux plages</li>
-          <li>Relation directe propriétaire — locataire, sans intermédiaire</li>
+    <!-- BLOC PRIX + INFOS CLÉS -->
+    <section class="grid-2">
+      <div class="card">
+        <h2>Tarifs & séjours</h2>
+        <div class="price-main">À partir de 30 000 F / jour</div>
+        <p class="price-note">Les tarifs s'adaptent à la durée et à la saison :</p>
+        <ul class="price-list">
+          <li><span>30 000 F / jour</span> — séjour standard</li>
+          <li><span>175 000 F / semaine</span> — selon saison</li>
+          <li><span>550 000 F / mois</span> — selon saison</li>
         </ul>
-      </aside>
-    </section>
-
-    <!-- GALERIE / AMBIANCE -->
-    <section class="gallery">
-      <div class="gallery-main">
-        <div class="gallery-tag">Ambiance du logement</div>
-        <div class="gallery-photo">
-          Visuels DIGIY à venir : salon, chambres, cuisine, extérieur…  
-          L’objectif : que vous puissiez vous projeter avant même d’arriver à Saly.
-        </div>
-        <div class="gallery-note">
-          Des photos professionnelles seront ajoutées progressivement sur la
-          <strong>fiche officielle DIGIY</strong> et sur cette vitrine partenaire.
-        </div>
-      </div>
-      <div class="gallery-side">
-        <div class="gallery-tag">Confort & usages</div>
-        <div class="gallery-grid-2">
-          <div class="gallery-pill">
-            🌞 Séjours détente, week-ends & vacances en famille
-          </div>
-          <div class="gallery-pill">
-            💻 Télétravail au calme, à deux pas de la station
-          </div>
-          <div class="gallery-pill">
-            🚗 Idéal pour base Saly / Ngaparou / Somone
-          </div>
-          <div class="gallery-pill">
-            🤝 Accueil humain, suivi direct avec les propriétaires
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INFOS DIGIY + FICHE OFFICIELLE -->
-    <section class="info-section">
-      <div>
-        <div class="info-block-title">Contact & réservation</div>
-        <p class="info-text">
-          Pour toute demande de disponibilité, de tarif ajusté (long séjour, basse saison)
-          ou de visite, vous échangez directement avec les propriétaires. Pas de commission,
-          pas de plateforme étrangère entre vous : <strong>tout se fait en direct, façon DIGIY.</strong>
+        <p class="price-note">
+          Un point GPS suffit : vous arrivez directement à la maison via votre application de navigation.
         </p>
-        <div class="info-grid">
-          <div>
-            <div class="info-item-label">Téléphone principal</div>
-            <div class="info-item-value">+221 77 134 2889 (Astou & Baptiste)</div>
-          </div>
-          <div>
-            <div class="info-item-label">Téléphone 2</div>
-            <div class="info-item-value">+221 77 876 5785</div>
-          </div>
-          <div>
-            <div class="info-item-label">Quartier</div>
-            <div class="info-item-value">Saly Joseph, près de l’école française</div>
-          </div>
-          <div>
-            <div class="info-item-label">Ville / Pays</div>
-            <div class="info-item-value">Saly — Sénégal</div>
-          </div>
+        <div class="badge-green">
+          ✅ Réservation en direct • Pas de frais cachés
         </div>
       </div>
 
-      <div>
-        <div class="info-block-title">Fiche officielle DIGIY LOC</div>
-        <div class="badge-digiy">
-          🦅 Fiche partenaire validée par DIGIYLYFE
+      <div class="card">
+        <h2>Infos rapides</h2>
+        <div class="info-row">
+          <div><span class="info-label">Quartier :</span> Saly Joseph</div>
+          <div><span class="info-label">Ville :</span> Saly, Sénégal</div>
+          <div><span class="info-label">Contact :</span> +221 77 876 57 85</div>
+          <div><span class="info-label">Propriétaires :</span> Astou & Baptiste</div>
         </div>
-        <p class="info-text">
-          La fiche officielle regroupe toutes les informations validées par DIGIY :
-          textes, tarifs, localisation, visuels, et future intégration avec les
-          modules de réservation DIGIY LOC.
-        </p>
 
-        <!-- ⭐⭐ BOUTON FICHE OFFICIELLE DIGIY ⭐⭐ -->
-        <a href="https://digiylyfe.com/partenaires-chez-baptiste/" class="btn btn-secondary fiche-link" target="_blank" rel="noopener">
-          ⭐ Voir la fiche officielle DIGIY
-        </a>
-        <p class="gallery-note" style="margin-top:0.4rem;">
-          En cliquant, vous ouvrez la fiche partenaire <strong>CHEZ BAPTISTE</strong> sur le site
-          principal <strong>DIGIYLYFE</strong>.
-        </p>
+        <!-- BLOCS VIDÉO & PHOTO BIEN VISIBLES -->
+        <div class="media-block">
+          <div class="media-line">
+            <div class="media-label">
+              <span class="emoji">🎥</span>
+              <span>Vidéo de présentation</span>
+            </div>
+            <a class="btn btn-primary" href="https://drive.google.com/file/d/1oEVpt1R7fWBAJnKZlPu_fp2gqS-Z1kni/view?usp=drive_link" target="_blank" rel="noopener">
+              Voir la vidéo →
+            </a>
+          </div>
+
+          <div class="media-line">
+            <div class="media-label">
+              <span class="emoji">📸</span>
+              <span>Visuel DIGIY</span>
+            </div>
+            <a class="btn btn-outline" href="https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png" target="_blank" rel="noopener">
+              Voir la photo →
+            </a>
+          </div>
+
+          <div class="media-line">
+            <div class="media-label">
+              <span class="emoji">🌐</span>
+              <span>Fiche partenaire complète</span>
+            </div>
+            <a class="btn btn-outline" href="https://digiylyfe.com/partenaires-chez-baptiste/" target="_blank" rel="noopener">
+              Ouvrir la fiche DIGIY →
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-      <p><strong>DIGIY LOC</strong> — Hébergements enracinés en Afrique, réservés en direct, sans commission.</p>
-      <p>Partenaire : CHEZ ASTOU & BAPTISTE • Saly Joseph, Sénégal • 0% commission • Paiement direct propriétaire.</p>
-    </footer>
-  </div>
-</div>
+    <!-- DÉTAILS & ÉQUIPEMENTS -->
+    <section class="section">
+      <h2>Ambiance & équipements</h2>
+      <p>
+        CHEZ ASTOU & BAPTISTE, c'est une maison tenue avec soin, pensée pour que vous vous sentiez
+        vraiment chez vous : propre, calme, chaleureuse, avec l’accueil humain au cœur.
+      </p>
+
+      <ul class="equip-list">
+        <li>Salon convivial pour se poser en famille</li>
+        <li>Chambres confortables</li>
+        <li>Cuisine équipée</li>
+        <li>Espaces de vie adaptés au télétravail</li>
+        <li>Environnement calme à Saly Joseph</li>
+        <li>Accès facile depuis la route principale</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT DIRECT -->
+    <section class="section">
+      <h2>Réserver en direct</h2>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-line">
+            📍 <strong>Adresse :</strong> Quartier Saly Joseph, non loin de l'école française, Saly, Sénégal.
+          </p>
+          <p class="contact-line">
+            📞 <strong>Téléphone :</strong> +221 77 876 57 85
+          </p>
+        </div>
+        <div>
+          <p class="contact-line">
+            Parlez directement aux propriétaires pour vos dates, votre budget et vos besoins spécifiques.
+          </p>
+          <div class="contact-cta">
+            <a class="btn btn-call" href="tel:+221778765785">📞 Appeler maintenant</a>
+            <a class="btn btn-wa" href="https://wa.me/221778765785" target="_blank" rel="noopener">
+              💬 WhatsApp direct
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <p class="disclaimer">
+        Cette vitrine est propulsée par DIGIY LOC (0% commission, paiement direct au propriétaire).  
+        Les tarifs peuvent varier en fonction de la saison et du nombre de personnes.
+      </p>
+    </section>
+  </main>
 </body>
 </html>
