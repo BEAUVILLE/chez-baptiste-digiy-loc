@@ -2,950 +2,896 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Planning DIGIY LOC — Chez Baptiste</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>DIGIY LOC — Chez Baptiste • Planning 14 jours</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <style>
     :root{
-      --bg:#022c22;          /* Vert profond Sénégal */
-      --bg-soft:#064e3b;
-      --card:#052e16;
-      --accent:#facc15;      /* Or DIGIY */
-      --accent-soft:rgba(250,204,21,0.14);
+      --bg:#020617;
+      --card:#030712;
+      --accent:#f97316;
+      --accent-soft:#fed7aa;
+      --green:#16a34a;
+      --green-soft:#bbf7d0;
+      --line:#1f2937;
       --text:#f9fafb;
-      --muted:#cbd5f5;
-      --line:#0f172a;
-
-      --free:#064e3b;        /* Libre DIGIY */
-      --digiy:#16a34a;       /* Réservé DIGIY */
-      --ota:#b91c1c;         /* Booking / OTA */
-      --closed:#4b5563;      /* Fermé */
-
-      --font-main: -apple-system,BlinkMacSystemFont,"Outfit","Manrope",system-ui,sans-serif;
+      --muted:#9ca3af;
+      --danger:#f97373;
     }
 
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
+    *{box-sizing:border-box;margin:0;padding:0;}
 
     body{
-      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
       background:
-        radial-gradient(circle at top,#16a34a33 0,transparent 55%),
-        linear-gradient(135deg,#022c22,#065f46);
+        radial-gradient(circle at top,#1f2937,transparent 60%),
+        radial-gradient(circle at bottom,#0b1120,transparent 55%),
+        var(--bg);
       color:var(--text);
-      font-family:var(--font-main);
-      padding:16px 10px 22px;
+      min-height:100vh;
       display:flex;
       justify-content:center;
+      padding:1.5rem 0.6rem 2rem;
     }
 
     .page{
       width:100%;
-      max-width:1040px;
+      max-width:1000px;
+      background:rgba(9,9,20,0.96);
+      border-radius:24px;
+      border:1px solid rgba(148,163,184,0.6);
+      box-shadow:0 20px 45px rgba(15,23,42,0.9);
+      padding:1.6rem 1.2rem 1.8rem;
     }
 
-    /* HEADER */
-    .header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
+    @media (min-width:768px){
+      body{padding:2.5rem 1.2rem;}
+      .page{padding:2.1rem 1.6rem 2.1rem;}
     }
 
-    .header-left{
-      display:flex;
-      gap:10px;
-      align-items:center;
+    h1{
+      font-size:1.8rem;
+      margin-bottom:0.3rem;
+    }
+    h2{
+      font-size:1.25rem;
+      margin-bottom:0.5rem;
     }
 
-    .logo{
-      width:44px;
-      height:44px;
-      border-radius:16px;
-      background:radial-gradient(circle at 25% 10%,#ecfeff,#22c55e);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 0 24px rgba(16,185,129,0.8);
-      color:#022c22;
-      font-weight:900;
-      font-size:20px;
+    p, div, span, td, th, input, select, button, label, textarea{
+      font-size:1rem;
     }
 
-    .title-block h1{
-      font-size:20px;
-      letter-spacing:0.06em;
-      text-transform:uppercase;
-      font-weight:800;
-    }
-
-    .title-block .subtitle{
-      font-size:14px;
-      color:var(--muted);
-      margin-top:4px;
-    }
-
-    .header-right{
-      text-align:right;
-      font-size:13px;
-      color:var(--muted);
+    @media (max-width:480px){
+      h1{font-size:1.9rem;}
+      h2{font-size:1.3rem;}
+      p,div,span,td,th,input,select,button,label,textarea{
+        font-size:1.02rem;
+      }
     }
 
     .badge{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      padding:4px 10px;
+      gap:0.4rem;
+      padding:0.3rem 0.7rem;
       border-radius:999px;
-      border:1px solid rgba(52,211,153,0.7);
-      background:rgba(6,95,70,0.6);
-      font-size:11px;
+      font-size:0.8rem;
       text-transform:uppercase;
-      letter-spacing:0.12em;
-      margin-bottom:4px;
+      letter-spacing:0.14em;
+      border:1px solid rgba(250,204,21,0.9);
+      background:rgba(251,191,36,0.1);
+      color:var(--accent-soft);
+      margin-bottom:0.6rem;
     }
 
-    /* CARD GLOBALE */
-    .card{
-      background:linear-gradient(145deg,rgba(5,46,22,0.98),rgba(6,95,70,0.96));
-      border-radius:22px;
-      border:1px solid rgba(16,185,129,0.65);
-      padding:14px 14px 16px;
-      box-shadow:
-        0 26px 70px rgba(0,0,0,0.85),
-        0 0 0 1px rgba(15,23,42,0.7);
+    .header-top{
+      display:flex;
+      gap:1rem;
+      align-items:flex-start;
+      margin-bottom:1rem;
+      flex-wrap:wrap;
     }
 
-    /* BARRE DU HAUT : date + navigation */
-    .top-row{
+    .logo{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      background:radial-gradient(circle at 30% 15%,#fef3c7,#22c55e);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.8rem;
+      font-weight:900;
+      color:#111827;
+      box-shadow:0 14px 30px rgba(34,197,94,0.8);
+      flex-shrink:0;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      margin-top:0.2rem;
+      line-height:1.5;
+    }
+
+    .tagline{
+      margin-top:0.35rem;
+      color:var(--accent-soft);
+      font-weight:600;
+    }
+
+    .pill-row{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:10px;
+      gap:0.4rem;
+      margin-top:0.5rem;
+    }
+    .pill{
+      padding:0.25rem 0.65rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      font-size:0.8rem;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+      color:var(--muted);
+    }
+    .pill-strong{
+      border-color:rgba(34,197,94,1);
+      color:#bbf7d0;
+      background:rgba(22,163,74,0.24);
     }
 
-    .date-range-title{
-      font-size:15px;
+    .planning-header{
+      margin-top:1.1rem;
+      margin-bottom:0.6rem;
+      display:flex;
+      flex-direction:column;
+      gap:0.4rem;
+    }
+
+    .planning-title-main{
       font-weight:700;
     }
 
-    .date-range-sub{
-      font-size:13px;
+    .planning-sub{
       color:var(--muted);
     }
 
-    .nav-buttons{
+    .planning-nav{
+      margin-top:0.4rem;
       display:flex;
-      gap:8px;
+      flex-wrap:wrap;
+      gap:0.4rem;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .nav-left,
+    .nav-right{
+      display:flex;
+      gap:0.4rem;
+      align-items:center;
       flex-wrap:wrap;
     }
 
     button{
-      font-family:var(--font-main);
+      font-family:inherit;
     }
 
     .btn{
       border-radius:999px;
-      border:1px solid rgba(148,163,184,0.4);
-      background:rgba(15,23,42,0.75);
+      border:1px solid rgba(148,163,184,0.7);
+      background:rgba(15,23,42,0.9);
       color:var(--text);
-      padding:8px 13px;
-      font-size:13px;
-      font-weight:600;
+      padding:0.4rem 0.9rem;
       cursor:pointer;
       display:inline-flex;
       align-items:center;
-      gap:6px;
+      gap:0.3rem;
     }
     .btn:hover{
-      border-color:var(--accent);
-      box-shadow:0 0 14px rgba(250,204,21,0.35);
+      border-color:rgba(250,204,21,0.9);
     }
     .btn-ghost{
       background:transparent;
     }
-    .btn-primary{
-      background:linear-gradient(135deg,#facc15,#eab308);
-      color:#022c22;
-      border-color:rgba(250,204,21,0.75);
-      box-shadow:0 10px 26px rgba(250,204,21,0.6);
+    .btn-accent{
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      border-color:#fdba74;
+      color:#111827;
+      font-weight:700;
     }
 
-    /* LÉGENDE */
-    .legend{
+    .legend-row{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:10px;
-      font-size:12px;
-      color:var(--muted);
+      gap:0.4rem;
+      margin-top:0.4rem;
     }
-
     .legend-item{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      padding:4px 8px;
+      gap:0.35rem;
+      padding:0.25rem 0.6rem;
       border-radius:999px;
-      background:rgba(15,23,42,0.8);
-      border:1px solid rgba(148,163,184,0.5);
+      border:1px solid rgba(55,65,81,0.9);
+      font-size:0.85rem;
+      color:var(--muted);
     }
-
     .legend-color{
       width:14px;
       height:14px;
       border-radius:4px;
     }
 
-    .lg-free{background:var(--free);}
-    .lg-digiy{background:var(--digiy);}
-    .lg-ota{background:var(--ota);}
-    .lg-closed{background:var(--closed);}
-
-    /* PLANNING TABLE SCROLLABLE */
-    .planning-wrapper{
-      margin-top:8px;
-      border-radius:18px;
-      border:1px solid rgba(15,23,42,0.9);
-      background:rgba(15,23,42,0.85);
-      overflow:hidden;
+    .legend-libre{
+      background:rgba(22,163,74,0.15);
+      border:1px solid rgba(22,163,74,0.7);
+    }
+    .legend-resa{
+      background:rgba(250,204,21,0.2);
+      border:1px solid rgba(250,204,21,0.9);
+    }
+    .legend-ota{
+      background:rgba(248,113,113,0.3);
+      border:1px solid rgba(248,113,113,0.9);
+    }
+    .legend-ferme{
+      background:rgba(55,65,81,0.8);
+      border:1px solid rgba(55,65,81,1);
     }
 
-    .planning-scroll{
-      width:100%;
+    /* TABLE PLANNING */
+    .table-wrap{
+      margin-top:0.8rem;
       overflow-x:auto;
+      border-radius:18px;
+      border:1px solid rgba(31,41,55,0.95);
+      background:linear-gradient(145deg,#020617,#02081a);
     }
 
     table{
       border-collapse:collapse;
-      width:100%;
-      min-width:720px;
+      min-width:780px;
     }
 
-    th, td{
+    th,td{
       border-bottom:1px solid rgba(31,41,55,0.9);
-      border-right:1px solid rgba(31,41,55,0.9);
+      padding:0.45rem 0.5rem;
+      text-align:center;
+      vertical-align:middle;
     }
 
-    th{
-      background:rgba(15,23,42,0.95);
-      font-size:13px;
-      font-weight:700;
-      padding:10px 8px;
-      text-align:center;
+    thead th{
       position:sticky;
       top:0;
+      background:#020617;
       z-index:2;
+      font-size:0.9rem;
+      font-weight:600;
+      color:#e5e7eb;
+      white-space:nowrap;
     }
 
-    .col-room{
-      min-width:160px;
+    thead th:first-child{
       text-align:left;
+    }
+
+    tbody td:first-child{
+      text-align:left;
+      font-weight:600;
       position:sticky;
       left:0;
-      z-index:3;
-      background:rgba(15,23,42,0.98);
-    }
-
-    .room-name{
-      font-size:14px;
-      font-weight:700;
-    }
-    .room-sub{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:2px;
+      background:linear-gradient(90deg,#020617,#02081a);
+      z-index:1;
     }
 
     .day-label{
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:0.12em;
-      color:var(--muted);
-    }
-    .day-date{
-      font-size:13px;
-      font-weight:700;
-    }
-
-    td{
-      padding:6px 4px;
-      text-align:center;
-    }
-
-    .day-cell{
-      font-size:13px;
-      min-width:46px;
-      height:48px;
-      cursor:pointer;
-      border-radius:10px;
-      padding:4px 3px;
       display:flex;
       flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      gap:2px;
+      gap:0.1rem;
     }
-
-    .status-free{
-      background:rgba(6,95,70,0.7);
-      color:#bbf7d0;
-    }
-
-    .status-digiy{
-      background:rgba(22,163,74,0.9);
-      color:#ecfdf5;
-    }
-
-    .status-ota{
-      background:rgba(185,28,28,0.9);
-      color:#fee2e2;
-    }
-
-    .status-closed{
-      background:rgba(55,65,81,0.9);
-      color:#e5e7eb;
-    }
-
-    .cell-tag{
-      font-size:10px;
+    .day-label span:first-child{
+      font-size:0.8rem;
       text-transform:uppercase;
-      letter-spacing:0.09em;
-      opacity:0.9;
+      letter-spacing:0.08em;
+      color:var(--muted);
     }
-    .cell-main{
-      font-size:12px;
+    .day-label span:last-child{
+      font-size:0.95rem;
       font-weight:600;
     }
 
-    /* FORMULAIRE AJOUT RÉSA */
-    .form-section{
-      margin-top:16px;
+    .cell-status{
+      border-radius:10px;
+      padding:0.3rem 0.35rem;
+      font-size:0.9rem;
+    }
+
+    .cell-libre{
+      background:rgba(22,163,74,0.18);
+      color:#bbf7d0;
+      border:1px solid rgba(22,163,74,0.7);
+    }
+    .cell-resa-digiy{
+      background:rgba(250,204,21,0.25);
+      color:#fef9c3;
+      border:1px solid rgba(250,204,21,0.9);
+    }
+    .cell-ota{
+      background:rgba(248,113,113,0.3);
+      color:#fee2e2;
+      border:1px solid rgba(248,113,113,0.95);
+    }
+    .cell-ferme{
+      background:rgba(55,65,81,0.9);
+      color:#e5e7eb;
+      border:1px solid rgba(55,65,81,1);
+    }
+
+    /* FORM RÉSERVATION */
+    .grid-2{
       display:grid;
-      grid-template-columns:1.8fr 1.2fr;
-      gap:12px;
+      grid-template-columns:1.4fr 1.2fr;
+      gap:1rem;
+      margin-top:1.4rem;
       flex-wrap:wrap;
     }
 
-    @media(max-width:768px){
-      .form-section{
-        grid-template-columns:1fr;
-      }
+    @media (max-width:768px){
+      .grid-2{grid-template-columns:1fr;}
     }
 
-    .form-card{
+    .card{
+      background:linear-gradient(145deg,#020617,#02081a);
       border-radius:18px;
-      border:1px solid rgba(15,23,42,0.9);
-      background:rgba(15,23,42,0.9);
-      padding:12px 12px 14px;
-    }
-
-    .form-title{
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:0.14em;
-      color:var(--muted);
-      margin-bottom:6px;
-    }
-
-    .field-row{
-      display:grid;
-      grid-template-columns:1.4fr 1.4fr;
-      gap:8px;
-      margin-bottom:8px;
-    }
-
-    @media(max-width:640px){
-      .field-row{
-        grid-template-columns:1fr;
-      }
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:3px;
+      border:1px solid rgba(31,41,55,0.95);
+      padding:0.9rem 0.9rem 1rem;
     }
 
     label{
-      font-size:12px;
+      display:block;
+      margin-bottom:0.2rem;
+      font-size:0.9rem;
       color:var(--muted);
-      letter-spacing:0.06em;
-      text-transform:uppercase;
     }
-
     .required::after{
       content:"*";
-      margin-left:3px;
-      color:var(--accent);
+      color:#facc15;
+      margin-left:4px;
     }
 
-    input, select{
+    .field-row{
+      display:flex;
+      gap:0.5rem;
+      flex-wrap:wrap;
+      margin-bottom:0.6rem;
+    }
+    .field-col{
+      flex:1 1 140px;
+      min-width:0;
+    }
+
+    input, select, textarea{
+      width:100%;
       border-radius:10px;
       border:1px solid rgba(55,65,81,0.9);
-      background:rgba(15,23,42,0.97);
+      background:rgba(15,23,42,0.95);
       color:var(--text);
-      padding:8px 9px;
-      font-size:14px;
+      padding:0.45rem 0.55rem;
       outline:none;
     }
-
-    input:focus, select:focus{
-      border-color:var(--accent);
-      box-shadow:0 0 0 1px rgba(250,204,21,0.4);
+    textarea{
+      min-height:70px;
+      resize:vertical;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color:rgba(250,204,21,0.9);
     }
 
     .hint{
-      font-size:11px;
+      font-size:0.85rem;
+      color:var(--muted);
+      margin-top:0.15rem;
+    }
+
+    .status-msg{
+      margin-top:0.4rem;
+      min-height:1.1rem;
+      font-size:0.9rem;
+    }
+    .status-error{
+      color:var(--danger);
+    }
+    .status-success{
+      color:var(--green-soft);
+    }
+
+    /* LISTE RÉSA */
+    .resa-list-empty{
       color:var(--muted);
     }
 
-    #status{
-      margin-top:6px;
-      font-size:12px;
-      min-height:18px;
+    .resa-item{
+      padding:0.5rem 0;
+      border-bottom:1px dashed rgba(55,65,81,0.9);
+      font-size:0.95rem;
     }
-    .status-ok{color:#bbf7d0;}
-    .status-error{color:#fecaca;}
-
-    /* PETIT RÉCAP */
-    .small-list{
-      font-size:13px;
+    .resa-item strong{
+      color:var(--accent-soft);
+    }
+    .resa-meta{
       color:var(--muted);
-      max-height:190px;
-      overflow:auto;
+      font-size:0.9rem;
+      margin-top:0.15rem;
     }
 
-    .small-row{
-      padding:6px 0;
-      border-bottom:1px dashed rgba(55,65,81,0.8);
+    .footer{
+      margin-top:1.2rem;
+      font-size:0.9rem;
+      color:var(--muted);
+      text-align:center;
     }
 
-    .small-row strong{
-      color:var(--accent);
-    }
   </style>
 </head>
 <body>
-<div class="page">
+  <main class="page">
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <div class="logo">DL</div>
-      <div class="title-block">
-        <h1>DIGIY LOC — Chez Baptiste</h1>
-        <div class="subtitle">
-          Appartement 2 chambres • Capacité 4 personnes • 0% commission, réservation directe.
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-top">
+        <div class="logo">∞</div>
+        <div>
+          <div class="badge">DIGIY LOC — CHEZ BAPTISTE</div>
+          <h1>Appartement 2 chambres • Capacité 4 personnes</h1>
+          <p class="subtitle">
+            0% commission, réservation directe avec le propriétaire.
+            Cet écran est réservé au pro pour visualiser son planning et enregistrer ses résas.
+          </p>
+          <div class="tagline">
+            Planning 14 jours • Synchronisé avec Supabase DIGIY CORE (business : <strong>chez-baptiste</strong>).
+          </div>
+          <div class="pill-row">
+            <span class="pill pill-strong">Saly Joseph</span>
+            <span class="pill">Appartement complet</span>
+            <span class="pill">4 personnes max</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="header-right">
-      <div class="badge">PLANNING 14 JOURS</div>
-      <div>Synchronisé avec Supabase DIGIY CORE</div>
-      <div style="font-size:12px;">Business : <strong>chez-baptiste</strong></div>
-    </div>
-  </header>
+    </header>
 
-  <main class="card">
-    <!-- TOP BAR -->
-    <div class="top-row">
-      <div>
-        <div class="date-range-title" id="dateRangeTitle">Planning</div>
-        <div class="date-range-sub" id="dateRangeSub"></div>
-      </div>
-      <div class="nav-buttons">
-        <button class="btn btn-ghost" id="btnPrev">◀ 14 jours</button>
-        <button class="btn btn-ghost" id="btnToday">Aujourd’hui</button>
-        <button class="btn btn-ghost" id="btnNext">14 jours ▶</button>
-      </div>
-    </div>
+    <!-- PLANNING HEADER -->
+    <section class="planning-header">
+      <div class="planning-title-main" id="planningTitle">Planning 14 jours</div>
+      <div class="planning-sub" id="planningSub">Du … au …</div>
 
-    <!-- LÉGENDE -->
-    <div class="legend">
-      <div class="legend-item">
-        <span class="legend-color lg-free"></span>
-        <span>Libre (DIGIY)</span>
+      <div class="planning-nav">
+        <div class="nav-left">
+          <button class="btn btn-ghost" id="btnPrev">&larr; 14 jours</button>
+          <button class="btn btn-ghost" id="btnToday">Aujourd’hui</button>
+          <button class="btn btn-ghost" id="btnNext">14 jours &rarr;</button>
+        </div>
+        <div class="nav-right">
+          <div class="legend-row">
+            <div class="legend-item">
+              <span class="legend-color legend-libre"></span> Libre (DIGIY)
+            </div>
+            <div class="legend-item">
+              <span class="legend-color legend-resa"></span> Réservé DIGIY
+            </div>
+            <div class="legend-item">
+              <span class="legend-color legend-ota"></span> Occupé Booking / OTA
+            </div>
+            <div class="legend-item">
+              <span class="legend-color legend-ferme"></span> Fermé
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="legend-item">
-        <span class="legend-color lg-digiy"></span>
-        <span>Réservé DIGIY</span>
-      </div>
-      <div class="legend-item">
-        <span class="legend-color lg-ota"></span>
-        <span>Occupé Booking / OTA</span>
-      </div>
-      <div class="legend-item">
-        <span class="legend-color lg-closed"></span>
-        <span>Fermé</span>
-      </div>
-    </div>
+    </section>
 
-    <!-- PLANNING -->
-    <div class="planning-wrapper">
-      <div class="planning-scroll">
-        <table id="planningTable">
-          <!-- rempli par JS -->
-        </table>
-      </div>
-    </div>
+    <!-- TABLE -->
+    <section class="table-wrap">
+      <table>
+        <thead id="theadRow">
+          <!-- rempli en JS -->
+        </thead>
+        <tbody id="tbodyRows">
+          <!-- une seule ligne: Appartement complet -->
+        </tbody>
+      </table>
+    </section>
 
-    <!-- FORMULAIRE + RÉCAP -->
-    <section class="form-section">
-      <div class="form-card">
-        <div class="form-title">Ajouter une réservation</div>
+    <!-- FORM + LISTE -->
+    <section class="grid-2">
+      <!-- FORM -->
+      <article class="card">
+        <h2>Ajouter une réservation</h2>
+
         <form id="resaForm">
           <div class="field-row">
-            <div class="field">
-              <label for="guestName" class="required">Nom du client</label>
-              <input id="guestName" required placeholder="Ex. Famille Ndiaye">
+            <div class="field-col">
+              <label class="required" for="guestName">Nom du client</label>
+              <input id="guestName" placeholder="Ex. Famille Ndiaye" required>
             </div>
-            <div class="field">
+            <div class="field-col">
               <label for="phone">Téléphone / WhatsApp</label>
-              <input id="phone" placeholder="+221 77 ...">
+              <input id="phone" placeholder="+221 77 …">
             </div>
           </div>
 
           <div class="field-row">
-            <div class="field">
-              <label for="checkIn" class="required">Arrivée (check-in)</label>
+            <div class="field-col">
+              <label class="required" for="checkIn">Arrivée (check-in)</label>
               <input id="checkIn" type="date" required>
             </div>
-            <div class="field">
-              <label for="checkOut" class="required">Départ (check-out)</label>
+            <div class="field-col">
+              <label class="required" for="checkOut">Départ (check-out)</label>
               <input id="checkOut" type="date" required>
             </div>
           </div>
 
           <div class="field-row">
-            <div class="field">
-              <label for="source" class="required">Source</label>
-              <select id="source" required>
+            <div class="field-col">
+              <label for="source">Source</label>
+              <select id="source">
                 <option value="digiy">DIGIY (direct)</option>
-                <option value="direct">Direct (téléphone)</option>
-                <option value="booking">Booking.com</option>
-                <option value="ota">Autre OTA</option>
+                <option value="booking">Booking / OTA</option>
+                <option value="autre">Autre</option>
               </select>
-            </div>
-            <div class="field">
-              <label for="comment">Notes</label>
-              <input id="comment" placeholder="Ex. Arrivée tardive, 4 personnes…">
+              <div class="hint">
+                Sert juste à colorer le planning : vert DIGIY, rouge OTA.
+              </div>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary" id="btnSave">
+          <div class="field-row">
+            <div class="field-col">
+              <label for="comment">Notes</label>
+              <textarea id="comment" placeholder="Ex. Arrivée tardive, 4 personnes…"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-accent" id="btnSave">
             🦅 Enregistrer dans Supabase
           </button>
 
-          <div id="status"></div>
-          <div class="hint">
-            Les réservations sont enregistrées dans <strong>loc_reservations</strong> et bloquent l’appartement sur la période choisie.
-          </div>
+          <div class="status-msg" id="formStatus"></div>
         </form>
-      </div>
+      </article>
 
-      <div class="form-card">
-        <div class="form-title">Réservations à venir</div>
-        <div class="small-list" id="resaList">
-          <!-- rempli par JS -->
-        </div>
-      </div>
+      <!-- LISTE RÉSA -->
+      <article class="card">
+        <h2>Réservations à venir</h2>
+        <div id="resaList"></div>
+      </article>
     </section>
 
+    <footer class="footer">
+      DIGIY LOC — Chez Baptiste • Planning connecté Supabase • 0% commission, paiement direct.
+    </footer>
+
   </main>
-</div>
 
-<script>
-  // 👉 Supabase DIGIY CORE (tes valeurs)
-  const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // 👉 CONFIG SUPABASE DIGIY CORE
+    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
 
-  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // 👉 State planning
-  const state = {
-    startDate: stripTime(new Date()),
-    days: 14,
-    rooms: [],
-    reservations: []
-  };
+    // Fenêtre de 14 jours
+    let windowStart = new Date();
+    windowStart.setHours(0,0,0,0);
 
-  // —— Helpers date ——
-  function stripTime(d){
-    const x = new Date(d);
-    x.setHours(0,0,0,0);
-    return x;
-  }
+    const theadRow = document.getElementById("theadRow");
+    const tbodyRows = document.getElementById("tbodyRows");
+    const planningTitle = document.getElementById("planningTitle");
+    const planningSub = document.getElementById("planningSub");
 
-  function addDays(d,n){
-    const x = new Date(d);
-    x.setDate(x.getDate()+n);
-    return x;
-  }
+    const form = document.getElementById("resaForm");
+    const formStatus = document.getElementById("formStatus");
+    const btnSave = document.getElementById("btnSave");
+    const resaList = document.getElementById("resaList");
 
-  function toISODate(d){
-    return d.toISOString().slice(0,10);
-  }
-
-  function formatDateFR(d){
-    return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit"});
-  }
-
-  function formatDayFR(d){
-    return d.toLocaleDateString("fr-FR",{weekday:"short"});
-  }
-
-  // 👉 MIS À JOUR du bandeau de dates
-  function updateDateHeader(){
-    const start = state.startDate;
-    const end   = addDays(start, state.days-1);
-    const title = document.getElementById("dateRangeTitle");
-    const sub   = document.getElementById("dateRangeSub");
-
-    title.textContent = "Planning " + formatDateFR(start) + " → " + formatDateFR(end);
-    sub.textContent   = state.days + " jours de visibilité — Appartement complet Chez Baptiste";
-  }
-
-  // 👉 Charger rooms + reservations depuis Supabase
-  async function loadData(){
-    setStatus("Chargement du planning en cours…","info");
-
-    const startISO = toISODate(state.startDate);
-    const endISO   = toISODate(addDays(state.startDate, state.days)); // exclusif
-
-    // 1) Rooms (Chez Baptiste uniquement)
-    const { data: rooms, error: roomsError } = await client
-      .from("loc_rooms")
-      .select("*")
-      .eq("business_slug","chez-baptiste")
-      .order("name",{ascending:true});
-
-    if(roomsError){
-      console.error(roomsError);
-      setStatus("Erreur chargement chambres : " + roomsError.message,"error");
-      return;
-    }
-    if(!rooms || rooms.length === 0){
-      setStatus("Aucune chambre trouvée pour 'chez-baptiste'. Vérifie la table loc_rooms.","error");
-      state.rooms = [];
-      renderPlanning();
-      return;
-    }
-    state.rooms = rooms;
-
-    // 2) Reservations qui se chevauchent avec la période
-    // condition: check_in < endISO AND check_out > startISO
-    const { data: resas, error: resError } = await client
-      .from("loc_reservations")
-      .select("*")
-      .lt("check_in", endISO)
-      .gt("check_out", startISO)
-      .order("check_in",{ascending:true});
-
-    if(resError){
-      console.error(resError);
-      setStatus("Erreur chargement réservations : " + resError.message,"error");
-      state.reservations = [];
-    } else {
-      state.reservations = resas || [];
-      setStatus("Planning synchronisé avec Supabase.","ok");
+    function formatDayLabel(d){
+      const jours = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
+      const j = jours[d.getDay()];
+      const dd = String(d.getDate()).padStart(2,"0");
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+      return { label:j+" "+dd+"/"+mm, j, dd, mm };
     }
 
-    updateDateHeader();
-    renderPlanning();
-    renderResaList();
-  }
-
-  // 👉 Trouver réservation pour une chambre et une date donnée
-  function findReservationForCell(roomId, day){
-    const dISO = toISODate(day);
-    // On travaille en mode: check_in <= d < check_out
-    return state.reservations.find(r => {
-      if(r.room_id !== roomId) return false;
-      const ci = new Date(r.check_in+"T00:00:00");
-      const co = new Date(r.check_out+"T00:00:00");
-      const dd = stripTime(day);
-      return ci <= dd && dd < co;
-    });
-  }
-
-  // 👉 Rendu planning
-  function renderPlanning(){
-    const table = document.getElementById("planningTable");
-    table.innerHTML = "";
-
-    // En-tête
-    const thead = document.createElement("thead");
-    const trHead = document.createElement("tr");
-
-    const thRoom = document.createElement("th");
-    thRoom.className = "col-room";
-    thRoom.innerHTML = "Logement";
-    trHead.appendChild(thRoom);
-
-    for(let i=0;i<state.days;i++){
-      const d = addDays(state.startDate,i);
-      const th = document.createElement("th");
-      const day = formatDayFR(d);
-      const date = formatDateFR(d);
-      th.innerHTML = `
-        <div class="day-label">${day}</div>
-        <div class="day-date">${date}</div>
-      `;
-      trHead.appendChild(th);
+    function toISODate(d){
+      return d.toISOString().slice(0,10);
     }
 
-    thead.appendChild(trHead);
-    table.appendChild(thead);
+    function addDays(d, n){
+      const x = new Date(d);
+      x.setDate(x.getDate()+n);
+      return x;
+    }
 
-    // Corps (une ligne par chambre)
-    const tbody = document.createElement("tbody");
+    function setFormDefaults(){
+      const todayISO = toISODate(new Date());
+      const tomorrowISO = toISODate(addDays(new Date(),1));
+      document.getElementById("checkIn").value = todayISO;
+      document.getElementById("checkOut").value = tomorrowISO;
+    }
 
-    state.rooms.forEach(room => {
+    function setStatus(msg, type){
+      formStatus.textContent = msg || "";
+      formStatus.className = "status-msg" + (type ? " status-" + type : "");
+    }
+
+    async function loadAndRender(){
+      // Calcul de la fenêtre 14 jours
+      const start = new Date(windowStart);
+      start.setHours(0,0,0,0);
+      const end = addDays(start,13); // 14 jours visibles
+
+      const dd1 = String(start.getDate()).padStart(2,"0");
+      const mm1 = String(start.getMonth()+1).padStart(2,"0");
+      const dd2 = String(end.getDate()).padStart(2,"0");
+      const mm2 = String(end.getMonth()+1).padStart(2,"0");
+
+      planningTitle.textContent = "Planning 14 jours — Appartement complet Chez Baptiste";
+      planningSub.textContent = "Du " + dd1 + "/" + mm1 + " au " + dd2 + "/" + mm2;
+
+      // HEADER du tableau
+      theadRow.innerHTML = "";
+      const trHead = document.createElement("tr");
+
+      const thLogement = document.createElement("th");
+      thLogement.textContent = "Logement";
+      trHead.appendChild(thLogement);
+
+      for(let i=0;i<14;i++){
+        const d = addDays(start,i);
+        const th = document.createElement("th");
+        const info = formatDayLabel(d);
+        th.innerHTML = '<div class="day-label"><span>'+info.j.toUpperCase()+'</span><span>'+info.dd+'/'+info.mm+'</span></div>';
+        trHead.appendChild(th);
+      }
+      theadRow.appendChild(trHead);
+
+      // Charger les réservations Supabase pour la fenêtre
+      const fromISO = toISODate(start);
+      const toISO = toISODate(end);
+
+      let reservations = [];
+      try{
+        const { data, error } = await client
+          .from("loc_reservations")
+          .select("*")
+          .eq("business_code","chez-baptiste")
+          .gte("check_out", fromISO)
+          .lte("check_in", toISO);
+
+        if(error){
+          console.error("Erreur chargement réservations :", error.message);
+          setStatus("Erreur chargement réservations : " + error.message, "error");
+        } else {
+          reservations = data || [];
+          setStatus("", "");
+        }
+      } catch(err){
+        console.error(err);
+        setStatus("Erreur inattendue lors du chargement des réservations.", "error");
+      }
+
+      // Construire un index par jour (YYYY-MM-DD -> status)
+      const statusByDay = {};
+      for(let i=0;i<14;i++){
+        const d = addDays(start,i);
+        statusByDay[toISODate(d)] = "free";
+      }
+
+      // Appliquer les réservations
+      reservations.forEach(r => {
+        const checkIn = new Date(r.check_in);
+        const checkOut = new Date(r.check_out);
+        checkIn.setHours(0,0,0,0);
+        checkOut.setHours(0,0,0,0);
+
+        for(let i=0;i<14;i++){
+          const current = addDays(start,i);
+          current.setHours(0,0,0,0);
+          const key = toISODate(current);
+
+          // Occupé pour les nuits de check_in jusqu'à veille check_out
+          if(current >= checkIn && current < checkOut){
+            const source = (r.source || "").toLowerCase();
+            if(source.startsWith("booking") || source.includes("ota")){
+              statusByDay[key] = "ota";
+            } else {
+              statusByDay[key] = "digiy";
+            }
+          }
+        }
+      });
+
+      // Corps du tableau : une seule ligne
+      tbodyRows.innerHTML = "";
       const tr = document.createElement("tr");
 
-      // Colonne logement
-      const tdRoom = document.createElement("td");
-      tdRoom.className = "col-room";
-      tdRoom.innerHTML = `
-        <div class="room-name">${room.name}</div>
-        <div class="room-sub">Capacité ${room.capacity || 4} pers • Code ${room.code || "-"}</div>
+      const tdLabel = document.createElement("td");
+      tdLabel.innerHTML = `
+        <div><strong>Appartement complet (2 chambres)</strong></div>
+        <div style="color:var(--muted);font-size:0.9rem;">Capacité 4 pers • Code : apt-complet</div>
       `;
-      tr.appendChild(tdRoom);
+      tr.appendChild(tdLabel);
 
-      // Colonnes jours
-      for(let i=0;i<state.days;i++){
-        const d = addDays(state.startDate,i);
-        const resa = findReservationForCell(room.id, d);
+      for(let i=0;i<14;i++){
+        const d = addDays(start,i);
+        const key = toISODate(d);
+        const status = statusByDay[key] || "free";
 
         const td = document.createElement("td");
-        const cell = document.createElement("div");
-        cell.className = "day-cell";
+        const div = document.createElement("div");
+        div.classList.add("cell-status");
 
-        let cls = "";
-        let tag = "";
-        let main = "";
-
-        if(room.status && room.status !== "open"){
-          cls = "status-closed";
-          tag = "Fermé";
-          main = "";
-        } else if(resa){
-          const src = (resa.source || "digiy").toLowerCase();
-          if(src === "booking" || src === "ota" || src === "expedia"){
-            cls = "status-ota";
-            tag = src === "booking" ? "Booking" : "OTA";
-          } else {
-            cls = "status-digiy";
-            tag = "DIGIY";
-          }
-          main = resa.guest_name || "Réservé";
-        } else {
-          cls = "status-free";
-          tag = "Libre";
-          main = "Réservable";
+        if(status === "free"){
+          div.classList.add("cell-libre");
+          div.textContent = "Libre / Réservable";
+        } else if(status === "digiy"){
+          div.classList.add("cell-resa-digiy");
+          div.textContent = "Réservé DIGIY";
+        } else if(status === "ota"){
+          div.classList.add("cell-ota");
+          div.textContent = "Occupé Booking / OTA";
+        } else if(status === "closed"){
+          div.classList.add("cell-ferme");
+          div.textContent = "Fermé";
         }
 
-        cell.classList.add(cls);
-        cell.innerHTML = `
-          <div class="cell-tag">${tag}</div>
-          <div class="cell-main">${main}</div>
-        `;
-
-        // Petit tooltip console pour debug si besoin
-        cell.onclick = () => {
-          if(resa){
-            alert(
-              "Réservation : " + (resa.guest_name || "") + "\n" +
-              "Source : " + (resa.source || "digiy") + "\n" +
-              "Arrivée : " + resa.check_in + "\n" +
-              "Départ : " + resa.check_out
-            );
-          } else if(room.status && room.status !== "open"){
-            alert("Logement fermé ce jour-là.");
-          } else {
-            alert("Jour libre. Tu peux ajouter une réservation avec le formulaire en bas.");
-          }
-        };
-
-        td.appendChild(cell);
+        td.appendChild(div);
         tr.appendChild(td);
       }
 
-      tbody.appendChild(tr);
-    });
+      tbodyRows.appendChild(tr);
 
-    table.appendChild(tbody);
-  }
-
-  // 👉 Liste compacte des réservations à venir
-  function renderResaList(){
-    const box = document.getElementById("resaList");
-    box.innerHTML = "";
-
-    if(!state.reservations || state.reservations.length === 0){
-      box.textContent = "Aucune réservation dans la période affichée.";
-      return;
+      // Mettre à jour la liste des résas à venir (à partir d'aujourd'hui)
+      await renderResaList();
     }
 
-    const nowISO = toISODate(stripTime(new Date()));
+    async function renderResaList(){
+      resaList.innerHTML = "";
 
-    const arr = [...state.reservations]
-      .sort((a,b) => (a.check_in+a.check_out).localeCompare(b.check_in+b.check_out));
+      try{
+        const todayISO = toISODate(new Date());
+        const { data, error } = await client
+          .from("loc_reservations")
+          .select("*")
+          .eq("business_code","chez-baptiste")
+          .gte("check_out", todayISO)
+          .order("check_in",{ascending:true});
 
-    arr.forEach(r => {
-      const div = document.createElement("div");
-      div.className = "small-row";
+        if(error){
+          console.error(error);
+          resaList.innerHTML = '<div class="resa-list-empty">Erreur chargement réservations : '+error.message+'</div>';
+          return;
+        }
 
-      const src = (r.source || "digiy").toLowerCase();
-      let srcLabel = "DIGIY";
-      if(src === "booking") srcLabel = "Booking.com";
-      else if(src === "ota") srcLabel = "Autre OTA";
-      else if(src === "direct") srcLabel = "Direct";
+        if(!data || !data.length){
+          resaList.innerHTML = '<div class="resa-list-empty">Aucune réservation dans la période affichée.</div>';
+          return;
+        }
 
-      const futureMark = (r.check_in >= nowISO) ? "🟢" : "⚪️";
+        data.forEach(r=>{
+          const ci = new Date(r.check_in);
+          const co = new Date(r.check_out);
+          const dd1 = String(ci.getDate()).padStart(2,"0");
+          const mm1 = String(ci.getMonth()+1).padStart(2,"0");
+          const dd2 = String(co.getDate()).padStart(2,"0");
+          const mm2 = String(co.getMonth()+1).padStart(2,"0");
 
-      div.innerHTML = `
-        <div>
-          <strong>${futureMark} ${r.guest_name || "Client"}</strong>
-          <span style="font-size:11px;opacity:0.9;"> (${srcLabel})</span><br>
-          <span>${r.check_in} → ${r.check_out}</span><br>
-          <span style="font-size:12px;opacity:0.9;">${r.phone || ""}</span>
-        </div>
-      `;
-      box.appendChild(div);
-    });
-  }
+          const source = (r.source || "digiy").toLowerCase();
+          let sourceLabel = "DIGIY";
+          if(source.startsWith("booking") || source.includes("ota")){
+            sourceLabel = "Booking / OTA";
+          } else if(source === "autre"){
+            sourceLabel = "Autre";
+          }
 
-  // 👉 Status message
-  function setStatus(msg,type){
-    const el = document.getElementById("status");
-    el.textContent = msg || "";
-    el.className = "";
-    if(type === "ok") el.classList.add("status-ok");
-    else if(type === "error") el.classList.add("status-error");
-  }
-
-  // 👉 Formulaire : ajout de réservation
-  async function onSubmitForm(e){
-    e.preventDefault();
-    setStatus("Enregistrement en cours…","info");
-
-    if(!state.rooms || state.rooms.length === 0){
-      setStatus("Pas de chambre trouvée pour Chez Baptiste.","error");
-      return;
-    }
-
-    const guestName = document.getElementById("guestName").value.trim();
-    const phone     = document.getElementById("phone").value.trim();
-    const checkIn   = document.getElementById("checkIn").value;
-    const checkOut  = document.getElementById("checkOut").value;
-    const source    = document.getElementById("source").value;
-    const comment   = document.getElementById("comment").value.trim();
-
-    if(!guestName || !checkIn || !checkOut){
-      setStatus("Merci de remplir au moins nom, arrivée, départ.","error");
-      return;
-    }
-
-    if(checkOut <= checkIn){
-      setStatus("La date de départ doit être après la date d’arrivée.","error");
-      return;
-    }
-
-    const room = state.rooms[0]; // planning 100% Chez Baptiste = 1 appart
-    const ciDate = new Date(checkIn+"T00:00:00");
-    const coDate = new Date(checkOut+"T00:00:00");
-
-    // Vérifier la collision simple côté front
-    const conflict = state.reservations.some(r => {
-      if(r.room_id !== room.id) return false;
-      const rci = new Date(r.check_in+"T00:00:00");
-      const rco = new Date(r.check_out+"T00:00:00");
-      // chevauchement : rci < co && rco > ci
-      return rci < coDate && rco > ciDate;
-    });
-
-    if(conflict){
-      setStatus("Conflit : une autre réservation couvre déjà tout ou partie de ces dates.","error");
-      return;
-    }
-
-    const payload = {
-      room_id: room.id,
-      guest_name: guestName,
-      phone,
-      source,
-      check_in: checkIn,
-      check_out: checkOut,
-      status: "confirmed",
-      comment
-    };
-
-    const btn = document.getElementById("btnSave");
-    btn.disabled = true;
-
-    try{
-      const { error } = await client
-        .from("loc_reservations")
-        .insert([payload]);
-
-      if(error){
-        console.error(error);
-        setStatus("Erreur Supabase : " + error.message,"error");
-      } else {
-        setStatus("✅ Réservation enregistrée pour " + guestName,"ok");
-        document.getElementById("resaForm").reset();
-        // Reset dates par défaut
-        initFormDates();
-        await loadData();
+          const div = document.createElement("div");
+          div.className = "resa-item";
+          div.innerHTML = `
+            <div><strong>${r.guest_name || "Client"}</strong> — du ${dd1}/${mm1} au ${dd2}/${mm2}</div>
+            <div class="resa-meta">
+              Source : ${sourceLabel}
+              ${r.phone ? " • Tel : "+r.phone : ""}
+            </div>
+          `;
+          resaList.appendChild(div);
+        });
+      } catch(err){
+        console.error(err);
+        resaList.innerHTML = '<div class="resa-list-empty">Erreur inattendue lors du chargement de la liste.</div>';
       }
-    } catch(err){
-      console.error(err);
-      setStatus("Erreur inattendue. Réessaie dans un instant.","error");
-    } finally{
-      btn.disabled = false;
     }
-  }
 
-  function initFormDates(){
-    const today = stripTime(new Date());
-    const ci = document.getElementById("checkIn");
-    const co = document.getElementById("checkOut");
-    ci.value = toISODate(today);
-    co.value = toISODate(addDays(today,1));
-  }
+    // NAVIGATION
+    document.getElementById("btnPrev").addEventListener("click", ()=>{
+      windowStart = addDays(windowStart, -14);
+      loadAndRender();
+    });
+    document.getElementById("btnNext").addEventListener("click", ()=>{
+      windowStart = addDays(windowStart, 14);
+      loadAndRender();
+    });
+    document.getElementById("btnToday").addEventListener("click", ()=>{
+      windowStart = new Date();
+      windowStart.setHours(0,0,0,0);
+      loadAndRender();
+    });
 
-  // 👉 Navigation boutons
-  document.getElementById("btnPrev").addEventListener("click", () => {
-    state.startDate = addDays(state.startDate, -state.days);
-    loadData();
-  });
-  document.getElementById("btnNext").addEventListener("click", () => {
-    state.startDate = addDays(state.startDate, state.days);
-    loadData();
-  });
-  document.getElementById("btnToday").addEventListener("click", () => {
-    state.startDate = stripTime(new Date());
-    loadData();
-  });
+    // SUBMIT FORM
+    form.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      setStatus("", "");
+      btnSave.disabled = true;
 
-  document.getElementById("resaForm").addEventListener("submit", onSubmitForm);
+      const guestName = document.getElementById("guestName").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const checkIn = document.getElementById("checkIn").value;
+      const checkOut = document.getElementById("checkOut").value;
+      const source = document.getElementById("source").value;
+      const comment = document.getElementById("comment").value.trim();
 
-  // 👉 Boot
-  (function init(){
-    initFormDates();
-    loadData();
-  })();
-</script>
+      if(!guestName || !checkIn || !checkOut){
+        setStatus("Merci de remplir au minimum le nom, la date d'arrivée et de départ.", "error");
+        btnSave.disabled = false;
+        return;
+      }
+
+      if(checkOut <= checkIn){
+        setStatus("La date de départ doit être après la date d'arrivée.", "error");
+        btnSave.disabled = false;
+        return;
+      }
+
+      try{
+        const { error } = await client
+          .from("loc_reservations")
+          .insert([{
+            business_code:"chez-baptiste",
+            room_label:"Appartement complet (2 chambres)",
+            room_code:"apt-complet",
+            guest_name:guestName,
+            phone:phone || null,
+            source:source || "digiy",
+            check_in:checkIn,
+            check_out:checkOut,
+            status:"confirmed",
+            comment:comment || null
+          }]);
+
+        if(error){
+          console.error("Erreur insert",error);
+          setStatus("Erreur lors de l’enregistrement : "+error.message,"error");
+        } else {
+          setStatus("🎉 Réservation enregistrée dans Supabase et planning mis à jour.","success");
+          form.reset();
+          setFormDefaults();
+          await loadAndRender();
+        }
+      } catch(err){
+        console.error(err);
+        setStatus("Erreur inattendue. Réessaie dans un instant.","error");
+      } finally{
+        btnSave.disabled = false;
+      }
+    });
+
+    // INIT
+    document.addEventListener("DOMContentLoaded", ()=>{
+      setFormDefaults();
+      loadAndRender();
+    });
+  </script>
 </body>
 </html>
