@@ -614,131 +614,198 @@
   </footer>
 </div>
 
-<script>
-function formatMoney(x){
-  return (x||0).toLocaleString("fr-FR") + " F";
-}
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-// CONSTANTES PROPRIO / PAIEMENT
-const OWNER_NAME       = "Jean Baptiste Beauville";
-const OWNER_WA_ID      = "221771342889";      // ID WhatsApp (sans +)
-const OWNER_PHONE_MAIN = "+221771342889";
-const OWNER_PHONE_SEC  = "+221778765785";
-const WAVE_PHONE       = "+221771342889";     // Wave uniquement
+  // === SUPABASE CONFIG ===
+  const SUPABASE_URL = 'https://wesqmwjjtsefyjnluosj.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA';
 
-const dateIn      = document.getElementById("dateIn");
-const dateOut     = document.getElementById("dateOut");
-const guests      = document.getElementById("guests");
-const clientName  = document.getElementById("clientName");
-const clientPhone = document.getElementById("clientPhone");
-const summary     = document.getElementById("summary");
-const btnWa       = document.getElementById("btnWa");
-const btnCall     = document.getElementById("btnCall");
-const btnSavePayMethod = document.getElementById("btnSavePayMethod");
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function getNights(){
-  if(!dateIn.value || !dateOut.value) return 0;
-  const d1 = new Date(dateIn.value);
-  const d2 = new Date(dateOut.value);
-  const diff = d2 - d1;
-  if(isNaN(diff) || diff <= 0) return 0;
-  return Math.round(diff / (1000*60*60*24));
-}
+  // CONSTANTES PROPRIO / PAIEMENT
+  const OWNER_NAME       = "Jean Baptiste Beauville";
+  const OWNER_WA_ID      = "221771342889";      // ID WhatsApp (sans +)
+  const OWNER_PHONE_MAIN = "+221771342889";
+  const OWNER_PHONE_SEC  = "+221778765785";
+  const WAVE_PHONE       = "+221771342889";     // Wave uniquement
+  const BUSINESS_ID      = "chez-baptiste";
 
-function updateSummary(){
-  const nights = getNights();
-  const g = Number(guests.value||"1");
-  if(!nights){
+  function formatMoney(x){
+    return (x||0).toLocaleString("fr-FR") + " F";
+  }
+
+  const dateIn      = document.getElementById("dateIn");
+  const dateOut     = document.getElementById("dateOut");
+  const guests      = document.getElementById("guests");
+  const clientName  = document.getElementById("clientName");
+  const clientPhone = document.getElementById("clientPhone");
+  const summary     = document.getElementById("summary");
+  const btnWa       = document.getElementById("btnWa");
+  const btnCall     = document.getElementById("btnCall");
+  const btnSavePayMethod = document.getElementById("btnSavePayMethod");
+
+  function getNights(){
+    if(!dateIn.value || !dateOut.value) return 0;
+    const d1 = new Date(dateIn.value);
+    const d2 = new Date(dateOut.value);
+    const diff = d2 - d1;
+    if(isNaN(diff) || diff <= 0) return 0;
+    return Math.round(diff / (1000*60*60*24));
+  }
+
+  function updateSummary(){
+    const nights = getNights();
+    const g = Number(guests.value||"1");
+    if(!nights){
+      summary.innerHTML = `
+        Sélectionnez vos dates d'arrivée et de départ pour voir le nombre de nuits
+        et une estimation en tarif nuit (30 000 F / nuit). Le tarif final sera validé
+        avec le propriétaire sur WhatsApp.
+      `;
+      return;
+    }
+    const totalNight = nights * 30000;
     summary.innerHTML = `
-      Sélectionnez vos dates d'arrivée et de départ pour voir le nombre de nuits
-      et une estimation en tarif nuit (30 000 F / nuit). Le tarif final sera validé
-      avec le propriétaire sur WhatsApp.
+      <div>Séjour de <strong>${nights}</strong> nuit(s) pour <strong>${g}</strong> personne(s) (max 4).</div>
+      <div>Estimation en tarif nuit (30 000 F / nuit) : <strong>${formatMoney(totalNight)}</strong>.</div>
+      <div style="margin-top:4px;font-size:12px;">
+        Tarifs indicatifs : <strong>175 000 F</strong> la semaine · <strong>450 000 F</strong> le mois (Sénélec en sus).<br>
+        Le tarif final sera confirmé avec le propriétaire lors de l’échange WhatsApp.
+      </div>
     `;
-    return;
   }
-  const totalNight = nights * 30000;
-  summary.innerHTML = `
-    <div>Séjour de <strong>${nights}</strong> nuit(s) pour <strong>${g}</strong> personne(s) (max 4).</div>
-    <div>Estimation en tarif nuit (30 000 F / nuit) : <strong>${formatMoney(totalNight)}</strong>.</div>
-    <div style="margin-top:4px;font-size:12px;">
-      Tarifs indicatifs : <strong>175 000 F</strong> la semaine · <strong>450 000 F</strong> le mois (Sénélec en sus).<br>
-      Le tarif final sera confirmé avec le propriétaire lors de l’échange WhatsApp.
-    </div>
-  `;
-}
 
-[dateIn, dateOut, guests].forEach(el=>{
-  el.addEventListener("change", updateSummary);
-});
+  [dateIn, dateOut, guests].forEach(el=>{
+    el.addEventListener("change", updateSummary);
+  });
 
-// Libellé mode de paiement (Wave fixed)
-function getPayMethodLabel(){
-  return "Wave (" + WAVE_PHONE + ")";
-}
-
-// WhatsApp bouton dynamique (demande de réservation)
-btnWa.addEventListener("click", ()=>{
-  const nights = getNights();
-  const g = Number(guests.value||"1");
-  const name = clientName.value.trim() || "Client";
-  const phoneClient = clientPhone.value.trim() || "Non communiqué";
-
-  let txt = "Bonjour, je souhaite une r\u00e9servation pour l'appartement CHEZ BAPTISTE \u00e0 Saly.%0A";
-  txt += "- Nom : " + name + "%0A";
-  txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
-  if(dateIn.value && dateOut.value){
-    txt += "- Dates : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
+  // Libellé mode de paiement (Wave fixed)
+  function getPayMethodLabel(){
+    return "Wave (" + WAVE_PHONE + ")";
   }
-  txt += "- Nombre de personnes : " + g + "%0A";
-  txt += "- Mode de paiement pr\u00e9vu : " + getPayMethodLabel() + "%0A";
-  txt += "- Tarifs DIGIY LOC : Nuit 30 000 F / Semaine 175 000 F / Mois 550 000 F (S\u00e9n\u00e9lec en sus).%0A";
-  txt += "%0AMerci de me confirmer la disponibilit\u00e9.";
-  const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
-  window.open(url, "_blank");
-});
 
-// Appel direct
-btnCall.addEventListener("click", ()=>{
-  window.location.href = "tel:" + OWNER_PHONE_MAIN;
-});
+  // Insert dans loc_reservations (Supabase)
+  async function insertReservation({ name, phoneClient, nights, guestsCount, source, note }) {
+    if(!dateIn.value || !dateOut.value || nights <= 0){
+      console.warn("Dates invalides, réservation non envoyée à Supabase.");
+      return;
+    }
 
-// Enregistrer le mode de paiement (Wave) + données client
-btnSavePayMethod.addEventListener("click", ()=>{
-  const nights = getNights();
-  const g = Number(guests.value||"1");
-  const name = clientName.value.trim() || "Client";
-  const phoneClient = clientPhone.value.trim() || "Non communiqué";
-  const methodLabel = getPayMethodLabel();
+    try {
+      const { error } = await supabase
+        .from('loc_reservations')
+        .insert([{
+          business_id: BUSINESS_ID,
+          name: name || null,
+          phone: phoneClient || null,
+          start_date: dateIn.value,
+          end_date: dateOut.value,
+          guests: guestsCount,
+          source: source,
+          notes: note || null
+        }]);
 
-  const bookingData = {
-    logementId: "CHEZ-BAPTISTE-SN-LOC",
-    ownerName: OWNER_NAME,
-    ownerPhone: OWNER_PHONE_MAIN,
-    clientName: name,
-    clientPhone: phoneClient,
-    dateIn: dateIn.value || null,
-    dateOut: dateOut.value || null,
-    nights,
-    guests: g,
-    payMethod: "wave",
-    payMethodLabel: methodLabel,
-    createdAt: new Date().toISOString()
-  };
-
-  console.log("DIGIY LOC — booking enregistré (local, à connecter à la base) :", bookingData);
-
-  let txt = "Bonjour, je viens d'enregistrer mes infos pour CHEZ BAPTISTE \u00e0 Saly.%0A";
-  txt += "- Nom : " + name + "%0A";
-  txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
-  if(dateIn.value && dateOut.value){
-    txt += "- S\u00e9jour : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
+      if (error) {
+        console.error("Erreur Supabase loc_reservations:", error.message);
+      } else {
+        console.log("Réservation envoyée à Supabase pour Chez Baptiste.");
+      }
+    } catch (e) {
+      console.error("Exception Supabase:", e);
+    }
   }
-  txt += "- Nombre de personnes : " + g + "%0A";
-  txt += "- Mode de paiement pr\u00e9vu : " + methodLabel + "%0A";
-  txt += "%0AJe ferai le r\u00e8glement directement via mon application Wave.";
-  const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
-  window.open(url, "_blank");
-});
+
+  // WhatsApp bouton dynamique (demande de réservation)
+  btnWa.addEventListener("click", async ()=>{
+    const nights = getNights();
+    const g = Number(guests.value||"1");
+    const name = clientName.value.trim() || "Client";
+    const phoneClient = clientPhone.value.trim() || "Non communiqué";
+
+    // Enregistrer côté Supabase (source = digiy_whatsapp)
+    if(nights > 0){
+      await insertReservation({
+        name,
+        phoneClient,
+        nights,
+        guestsCount: g,
+        source: 'digiy_whatsapp',
+        note: 'Demande WhatsApp depuis la fiche vitrine'
+      });
+    }
+
+    let txt = "Bonjour, je souhaite une r\u00e9servation pour l'appartement CHEZ BAPTISTE \u00e0 Saly.%0A";
+    txt += "- Nom : " + name + "%0A";
+    txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
+    if(dateIn.value && dateOut.value){
+      txt += "- Dates : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
+    }
+    txt += "- Nombre de personnes : " + g + "%0A";
+    txt += "- Mode de paiement pr\u00e9vu : " + getPayMethodLabel() + "%0A";
+    txt += "- Tarifs DIGIY LOC : Nuit 30 000 F / Semaine 175 000 F / Mois 550 000 F (S\u00e9n\u00e9lec en sus).%0A";
+    txt += "%0AMerci de me confirmer la disponibilit\u00e9.";
+    const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
+    window.open(url, "_blank");
+  });
+
+  // Appel direct
+  btnCall.addEventListener("click", ()=>{
+    window.location.href = "tel:" + OWNER_PHONE_MAIN;
+  });
+
+  // Enregistrer le mode de paiement (Wave) + données client + Supabase
+  btnSavePayMethod.addEventListener("click", async ()=>{
+    const nights = getNights();
+    const g = Number(guests.value||"1");
+    const name = clientName.value.trim() || "Client";
+    const phoneClient = clientPhone.value.trim() || "Non communiqué";
+    const methodLabel = getPayMethodLabel();
+
+    if(!dateIn.value || !dateOut.value || nights <= 0){
+      alert("Merci de choisir une date d'arrivée et de départ avant d'enregistrer vos infos.");
+      return;
+    }
+
+    const bookingData = {
+      logementId: "CHEZ-BAPTISTE-SN-LOC",
+      ownerName: OWNER_NAME,
+      ownerPhone: OWNER_PHONE_MAIN,
+      clientName: name,
+      clientPhone: phoneClient,
+      dateIn: dateIn.value || null,
+      dateOut: dateOut.value || null,
+      nights,
+      guests: g,
+      payMethod: "wave",
+      payMethodLabel: methodLabel,
+      createdAt: new Date().toISOString()
+    };
+
+    console.log("DIGIY LOC — booking enregistré (local) :", bookingData);
+
+    // Supabase (source = digiy_wave)
+    await insertReservation({
+      name,
+      phoneClient,
+      nights,
+      guestsCount: g,
+      source: 'digiy_wave',
+      note: 'Enregistrer mes infos (Wave) depuis la fiche vitrine'
+    });
+
+    let txt = "Bonjour, je viens d'enregistrer mes infos pour CHEZ BAPTISTE \u00e0 Saly.%0A";
+    txt += "- Nom : " + name + "%0A";
+    txt += "- T\u00e9l\u00e9phone : " + phoneClient + "%0A";
+    if(dateIn.value && dateOut.value){
+      txt += "- S\u00e9jour : du " + dateIn.value + " au " + dateOut.value + " (" + nights + " nuit(s))%0A";
+    }
+    txt += "- Nombre de personnes : " + g + "%0A";
+    txt += "- Mode de paiement pr\u00e9vu : " + methodLabel + "%0A";
+    txt += "%0AJe ferai le r\u00e8glement directement via mon application Wave.";
+    const url = "https://wa.me/" + OWNER_WA_ID + "?text=" + txt;
+    window.open(url, "_blank");
+  });
 </script>
 </body>
 </html>
