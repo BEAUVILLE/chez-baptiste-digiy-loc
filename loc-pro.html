@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>DIGIY LOC PRO — CHEZ BAPTISTE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<style>
+  :root{
+    --bg:#022c22;
+    --bg2:#065f46;
+    --card:#052e16;
+    --accent:#facc15;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --danger:#f97373;
+    --success:#22c55e;
+    --border:rgba(148,163,184,0.40);
+    --input-bg:rgba(15,23,42,0.75);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Manrope","Outfit",system-ui,sans-serif;}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(circle at top,#16a34a22 0,transparent 55%),
+      linear-gradient(135deg,var(--bg),var(--bg2));
+    color:var(--text);
+    padding:18px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+  }
+
+  .wrap{width:100%;max-width:980px;display:flex;flex-direction:column;gap:12px;}
+
+  .topbar{
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  }
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 14px;border-radius:999px;
+    border:1px solid rgba(148,163,184,0.35);
+    background:rgba(15,23,42,0.65);
+    color:var(--muted);
+    font-weight:900;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    text-decoration:none;
+    backdrop-filter:blur(10px);
+  }
+  .pill-accent{
+    background:linear-gradient(135deg,#facc15,#eab308);
+    color:#022c22;border:none;
+    box-shadow:0 10px 26px rgba(250,204,21,0.35);
+  }
+
+  .card{
+    background:linear-gradient(145deg,rgba(5,46,22,0.97),rgba(6,95,70,0.96));
+    border-radius:22px;
+    border:1px solid rgba(15,118,110,0.45);
+    padding:16px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.65);
+    backdrop-filter:blur(14px);
+  }
+
+  .title{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  }
+  h1{
+    font-size:18px;text-transform:uppercase;letter-spacing:.10em;font-weight:900;
+  }
+  .sub{margin-top:6px;color:var(--muted);font-size:13px;font-weight:700;line-height:1.35;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 10px;border-radius:999px;
+    border:1px solid rgba(250,204,21,0.55);
+    background:rgba(250,204,21,0.10);
+    color:#fef9c3;font-weight:900;font-size:12px;
+  }
+
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .tab{
+    padding:10px 12px;border-radius:14px;
+    border:1px solid rgba(148,163,184,0.35);
+    background:rgba(15,23,42,0.6);
+    color:var(--muted);
+    font-weight:900;font-size:12px;letter-spacing:.10em;text-transform:uppercase;
+    cursor:pointer;
+  }
+  .tab.active{
+    border-color:var(--accent);
+    color:#022c22;
+    background:linear-gradient(135deg,#facc15,#eab308);
+  }
+
+  .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px;}
+  @media(min-width:900px){ .grid{grid-template-columns:1.2fr 0.8fr;} }
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .field{display:flex;flex-direction:column;gap:4px;margin-top:10px;}
+  label{font-size:11px;color:var(--muted);font-weight:900;letter-spacing:.12em;text-transform:uppercase;}
+  input, textarea{
+    border-radius:12px;border:1px solid var(--border);
+    background:var(--input-bg);color:var(--text);
+    padding:10px 12px;font-size:14px;outline:none;
+  }
+  textarea{min-height:88px;resize:vertical;}
+  input:focus, textarea:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 1px rgba(250,204,21,0.25), 0 0 22px rgba(34,197,94,0.25);
+  }
+
+  .btn{
+    margin-top:12px;width:100%;
+    border:none;border-radius:999px;
+    padding:12px 14px;
+    font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+    cursor:pointer;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,#facc15,#eab308);
+    color:#022c22;
+    box-shadow:0 10px 26px rgba(250,204,21,0.35);
+  }
+  .btn-dark{
+    background:rgba(15,23,42,0.75);
+    border:1px solid rgba(148,163,184,0.35);
+    color:var(--text);
+  }
+
+  .status{margin-top:10px;font-size:13px;font-weight:900;min-height:18px;}
+  .ok{color:var(--success);}
+  .err{color:var(--danger);}
+
+  table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:10px;}
+  td, th{padding:10px 12px;text-align:left;font-size:13px;}
+  th{color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.10em;font-size:11px;}
+  .row{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(15,118,110,0.35);
+    border-radius:14px;
+  }
+  .row td:first-child{border-top-left-radius:14px;border-bottom-left-radius:14px;}
+  .row td:last-child{border-top-right-radius:14px;border-bottom-right-radius:14px;}
+  .mini{color:var(--muted);font-size:12px;font-weight:800;}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="pill" href="index.html">← Vitrine Chez Baptiste</a>
+    <a class="pill" href="https://beauville.github.io/mon-espace-digiy/">🦅 Mon Espace</a>
+    <a class="pill pill-accent" href="https://digiylyfe.com/accueil-digiy/">∞ HUB DIGIY</a>
+  </div>
+
+  <div class="card">
+    <div class="title">
+      <div>
+        <h1>DIGIY LOC PRO</h1>
+        <div class="sub" id="subLine">Connexion…</div>
+      </div>
+      <div class="badge" id="bidBadge">BID: —</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="resa">Réservations</button>
+      <button class="tab" data-tab="blocks">Blocages</button>
+      <button class="tab" data-tab="infos">Infos logement</button>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <!-- PANELS -->
+    <div class="panel active" id="panel-resa">
+      <div class="grid">
+        <div class="card" style="padding:12px;">
+          <div style="font-weight:900;letter-spacing:.10em;text-transform:uppercase;">Dernières demandes</div>
+          <div class="mini">Table <strong>loc_reservations</strong> filtrée par business_id.</div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Dates</th>
+                <th>Pers.</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody id="resaTbody"></tbody>
+          </table>
+
+          <button class="btn btn-dark" id="reloadResaBtn">↻ Recharger</button>
+        </div>
+
+        <div class="card" style="padding:12px;">
+          <div style="font-weight:900;letter-spacing:.10em;text-transform:uppercase;">Actions</div>
+          <div class="mini">Export + déconnexion</div>
+
+          <button class="btn btn-primary" id="exportBtn">⬇ Export JSON</button>
+          <button class="btn btn-dark" id="logoutBtn">⏏ Se déconnecter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-blocks">
+      <div class="grid">
+        <div class="card" style="padding:12px;">
+          <div style="font-weight:900;letter-spacing:.10em;text-transform:uppercase;">Bloquer des dates</div>
+          <div class="mini">Ex : Booking, maintenance, privé.</div>
+
+          <div class="field">
+            <label>Début</label>
+            <input type="date" id="bStart">
+          </div>
+          <div class="field">
+            <label>Fin</label>
+            <input type="date" id="bEnd">
+          </div>
+          <div class="field">
+            <label>Motif</label>
+            <input type="text" id="bReason" placeholder="Ex : Booking, maintenance…">
+          </div>
+
+          <button class="btn btn-primary" id="addBlockBtn">➕ Ajouter</button>
+        </div>
+
+        <div class="card" style="padding:12px;">
+          <div style="font-weight:900;letter-spacing:.10em;text-transform:uppercase;">Blocages existants</div>
+          <div class="mini">Table <strong>loc_availability_blocks</strong>.</div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Dates</th>
+                <th>Motif</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="blocksTbody"></tbody>
+          </table>
+
+          <button class="btn btn-dark" id="reloadBlocksBtn">↻ Recharger</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-infos">
+      <div class="grid">
+        <div class="card" style="padding:12px;">
+          <div style="font-weight:900;letter-spacing:.10em;text-transform:uppercase;">Infos logement</div>
+          <div class="mini">Table <strong>loc_businesses</strong> (1 fiche par business_id).</div>
+
+          <div class="field"><label>Titre</label><input id="iTitle"></div>
+          <div class="field"><label>Description</label><textarea id="iDesc"></textarea></div>
+          <div class="field"><label>Prix nuit (XOF)</label><input id="iNight" type="number"></div>
+          <div class="field"><label>Prix semaine (XOF)</label><input id="iWeek" type="number"></div>
+          <div class="field"><label>Prix mois (XOF)</label><input id="iMonth" type="number"></div>
+          <div class="field"><label>WhatsApp (sans +)</label><input id="iWa" placeholder="221771342889"></div>
+          <div class="field"><label>Téléphone</label><input id="iPhone" placeholder="+221..."></div>
+          <div class="field"><label>Lien photo</label><input id="iPhoto" placeholder="https://...png"></div>
+
+          <button class="btn btn-primary" id="saveInfosBtn">💾 Enregistrer</button>
+        </div>
+
+        <div class="card" style="padding:12px;">
+          <div style="font-weight:900;letter-spacing:.10em;text-transform:uppercase;">Statut</div>
+          <div class="mini" id="infosMeta">—</div>
+          <button class="btn btn-dark" id="loadInfosBtn">↻ Charger</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const statusEl = document.getElementById("status");
+  const subLine  = document.getElementById("subLine");
+  const bidBadge = document.getElementById("bidBadge");
+
+  const resaTbody = document.getElementById("resaTbody");
+  const blocksTbody = document.getElementById("blocksTbody");
+
+  const bStart = document.getElementById("bStart");
+  const bEnd = document.getElementById("bEnd");
+  const bReason = document.getElementById("bReason");
+
+  const iTitle = document.getElementById("iTitle");
+  const iDesc  = document.getElementById("iDesc");
+  const iNight = document.getElementById("iNight");
+  const iWeek  = document.getElementById("iWeek");
+  const iMonth = document.getElementById("iMonth");
+  const iWa    = document.getElementById("iWa");
+  const iPhone = document.getElementById("iPhone");
+  const iPhoto = document.getElementById("iPhoto");
+  const infosMeta = document.getElementById("infosMeta");
+
+  const reloadResaBtn = document.getElementById("reloadResaBtn");
+  const reloadBlocksBtn = document.getElementById("reloadBlocksBtn");
+  const addBlockBtn = document.getElementById("addBlockBtn");
+  const loadInfosBtn = document.getElementById("loadInfosBtn");
+  const saveInfosBtn = document.getElementById("saveInfosBtn");
+  const exportBtn = document.getElementById("exportBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  function qs(name){
+    const u = new URL(window.location.href);
+    return u.searchParams.get(name);
+  }
+  function setStatus(msg, type){
+    statusEl.textContent = msg || "";
+    statusEl.className = "status " + (type || "");
+  }
+  function escapeHtml(s){
+    return (s||"").toString()
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // Tabs
+  document.querySelectorAll(".tab").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      const tab = btn.dataset.tab;
+      document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+      document.getElementById("panel-"+tab).classList.add("active");
+    });
+  });
+
+  const BUSINESS_ID = (qs("bid") || "chez-baptiste").trim();
+  bidBadge.textContent = "BID: " + BUSINESS_ID;
+
+  async function guardSession(){
+    const { data, error } = await client.auth.getUser();
+    if(error || !data || !data.user){
+      window.location.href = "https://beauville.github.io/inscription-digiy/";
+      return false;
+    }
+    return true;
+  }
+
+  async function loadReservations(){
+    resaTbody.innerHTML = "";
+    const { data, error } = await client
+      .from("loc_reservations")
+      .select("name, phone, start_date, end_date, guests, source, created_at")
+      .eq("business_id", BUSINESS_ID)
+      .order("created_at", { ascending:false })
+      .limit(30);
+
+    if(error){
+      resaTbody.innerHTML = `<tr class="row"><td colspan="4">Erreur: ${escapeHtml(error.message)}</td></tr>`;
+      return;
+    }
+    if(!data || !data.length){
+      resaTbody.innerHTML = `<tr class="row"><td colspan="4">Aucune demande.</td></tr>`;
+      return;
+    }
+
+    data.forEach(r=>{
+      const tr = document.createElement("tr");
+      tr.className = "row";
+      tr.innerHTML = `
+        <td><div style="font-weight:900;">${escapeHtml(r.name||"Client")}</div><div class="mini">${escapeHtml(r.phone||"")}</div></td>
+        <td><div style="font-weight:900;">${escapeHtml(r.start_date||"—")} → ${escapeHtml(r.end_date||"—")}</div></td>
+        <td style="font-weight:900;">${escapeHtml(r.guests||"")}</td>
+        <td><div style="font-weight:900;">${escapeHtml((r.source||"").toUpperCase())}</div><div class="mini">${escapeHtml((r.created_at||"").toString().slice(0,19).replace("T"," "))}</div></td>
+      `;
+      resaTbody.appendChild(tr);
+    });
+  }
+
+  async function loadBlocks(){
+    blocksTbody.innerHTML = "";
+    const { data, error } = await client
+      .from("loc_availability_blocks")
+      .select("id, start_date, end_date, reason, created_at")
+      .eq("business_id", BUSINESS_ID)
+      .order("start_date", { ascending:true })
+      .limit(60);
+
+    if(error){
+      blocksTbody.innerHTML = `<tr class="row"><td colspan="3">Table absente ? (${escapeHtml(error.message)})</td></tr>`;
+      return;
+    }
+    if(!data || !data.length){
+      blocksTbody.innerHTML = `<tr class="row"><td colspan="3">Aucun blocage.</td></tr>`;
+      return;
+    }
+
+    data.forEach(b=>{
+      const tr = document.createElement("tr");
+      tr.className = "row";
+      tr.innerHTML = `
+        <td><div style="font-weight:900;">${escapeHtml(b.start_date)} → ${escapeHtml(b.end_date)}</div><div class="mini">${escapeHtml((b.created_at||"").toString().slice(0,19).replace("T"," "))}</div></td>
+        <td style="font-weight:900;">${escapeHtml(b.reason||"")}</td>
+        <td><button class="pill" style="cursor:pointer" data-del="${escapeHtml(b.id)}">Supprimer</button></td>
+      `;
+      blocksTbody.appendChild(tr);
+    });
+
+    blocksTbody.querySelectorAll("[data-del]").forEach(btn=>{
+      btn.addEventListener("click", async ()=>{
+        const id = btn.getAttribute("data-del");
+        const { error } = await client.from("loc_availability_blocks").delete().eq("id", id);
+        if(error){ setStatus("Suppression impossible : " + error.message, "err"); return; }
+        setStatus("Blocage supprimé ✅", "ok");
+        loadBlocks();
+      });
+    });
+  }
+
+  async function addBlock(){
+    if(!bStart.value || !bEnd.value){
+      setStatus("Choisis début + fin.", "err"); return;
+    }
+    if(new Date(bEnd.value) <= new Date(bStart.value)){
+      setStatus("Fin doit être après début.", "err"); return;
+    }
+    const payload = {
+      business_id: BUSINESS_ID,
+      start_date: bStart.value,
+      end_date: bEnd.value,
+      reason: (bReason.value||"").trim() || "indisponible"
+    };
+    const { error } = await client.from("loc_availability_blocks").insert(payload);
+    if(error){ setStatus("Erreur ajout: " + error.message, "err"); return; }
+    bReason.value = "";
+    setStatus("Blocage ajouté ✅", "ok");
+    loadBlocks();
+  }
+
+  async function loadInfos(){
+    infosMeta.textContent = "Chargement…";
+    const { data, error } = await client
+      .from("loc_businesses")
+      .select("title, description, price_night_xof, price_week_xof, price_month_xof, owner_whatsapp, owner_phone, photo_url, updated_at")
+      .eq("business_id", BUSINESS_ID)
+      .maybeSingle();
+
+    if(error){ infosMeta.textContent = "Table absente ? (" + error.message + ")"; return; }
+    if(!data){ infosMeta.textContent = "Aucune fiche. Remplis puis Enregistrer."; return; }
+
+    iTitle.value = data.title || "";
+    iDesc.value  = data.description || "";
+    iNight.value = data.price_night_xof || "";
+    iWeek.value  = data.price_week_xof || "";
+    iMonth.value = data.price_month_xof || "";
+    iWa.value    = data.owner_whatsapp || "";
+    iPhone.value = data.owner_phone || "";
+    iPhoto.value = data.photo_url || "";
+
+    infosMeta.textContent = "Maj: " + (data.updated_at ? data.updated_at.toString().slice(0,19).replace("T"," ") : "—");
+  }
+
+  async function saveInfos(){
+    const payload = {
+      business_id: BUSINESS_ID,
+      title: (iTitle.value||"").trim(),
+      description: (iDesc.value||"").trim(),
+      price_night_xof: Number(iNight.value||0),
+      price_week_xof: Number(iWeek.value||0),
+      price_month_xof: Number(iMonth.value||0),
+      owner_whatsapp: (iWa.value||"").trim(),
+      owner_phone: (iPhone.value||"").trim(),
+      photo_url: (iPhoto.value||"").trim(),
+      updated_at: new Date().toISOString()
+    };
+    const { error } = await client.from("loc_businesses").upsert(payload, { onConflict:"business_id" });
+    if(error){ setStatus("Erreur save: " + error.message, "err"); return; }
+    setStatus("Infos enregistrées ✅", "ok");
+    loadInfos();
+  }
+
+  async function exportResa(){
+    const { data, error } = await client
+      .from("loc_reservations")
+      .select("*")
+      .eq("business_id", BUSINESS_ID)
+      .order("created_at", { ascending:false })
+      .limit(500);
+
+    if(error){ setStatus("Export impossible: " + error.message, "err"); return; }
+
+    const blob = new Blob([JSON.stringify(data || [], null, 2)], { type:"application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "digiy_loc_reservations_" + BUSINESS_ID + ".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    setStatus("Export OK ✅", "ok");
+  }
+
+  reloadResaBtn.addEventListener("click", loadReservations);
+  reloadBlocksBtn.addEventListener("click", loadBlocks);
+  addBlockBtn.addEventListener("click", addBlock);
+  loadInfosBtn.addEventListener("click", loadInfos);
+  saveInfosBtn.addEventListener("click", saveInfos);
+  exportBtn.addEventListener("click", exportResa);
+
+  logoutBtn.addEventListener("click", async ()=>{
+    try{ await client.auth.signOut(); }catch(e){}
+    window.location.href = "https://beauville.github.io/inscription-digiy/";
+  });
+
+  async function init(){
+    const ok = await guardSession();
+    if(!ok) return;
+
+    subLine.textContent = "Connecté ✅ — Gestion propriétaire";
+    setStatus("Chargement…", "");
+
+    await loadReservations();
+    await loadBlocks();
+    await loadInfos();
+
+    setStatus("Prêt ✅", "ok");
+  }
+
+  // start
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
+
+</body>
+</html>
