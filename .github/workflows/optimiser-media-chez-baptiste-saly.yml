@@ -1,0 +1,90 @@
+name: Optimiser media Chez Baptiste Saly
+
+on:
+  push:
+    paths:
+      - '.github/workflows/optimiser-media-chez-baptiste-saly.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  optimiser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Installer convertisseurs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp libavif-bin
+
+      - name: Rapatrier le visuel Chez Baptiste Saly
+        run: |
+          set -euo pipefail
+          mkdir -p assets/saly
+          curl -fsSL 'https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png' -o assets/saly/chez-baptiste-appartement.png
+
+      - name: Convertir en WebP et AVIF
+        run: |
+          set -euo pipefail
+          cwebp -quiet -q 82 assets/saly/chez-baptiste-appartement.png -o assets/saly/chez-baptiste-appartement.webp
+          avifenc --min 28 --max 35 --speed 6 assets/saly/chez-baptiste-appartement.png assets/saly/chez-baptiste-appartement.avif >/dev/null
+
+      - name: Basculer la vitrine vers les formats legers
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = '''<img src="https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png"
+               alt="Appartement CHEZ BAPTISTE à Saly"
+               class="hero-photo">'''
+          new = '''<picture class="digiy-hero-picture">
+            <source type="image/avif" srcset="assets/saly/chez-baptiste-appartement.avif">
+            <source type="image/webp" srcset="assets/saly/chez-baptiste-appartement.webp">
+            <img src="assets/saly/chez-baptiste-appartement.png"
+                 alt="Appartement CHEZ BAPTISTE à Saly"
+                 class="hero-photo" decoding="async">
+          </picture>'''
+          if old not in s:
+              raise SystemExit('Photo hero Chez Baptiste Saly introuvable')
+          s = s.replace(old, new, 1)
+
+          old_link = 'href="https://digiylyfe.com/wp-content/uploads/2025/06/042-BAPTISTE.png"'
+          if old_link in s:
+              s = s.replace(old_link, 'href="assets/saly/chez-baptiste-appartement.png"')
+
+          marker = '/* DIGIY media opt Chez Baptiste Saly 20260830 */'
+          if marker not in s:
+              css = '''\n  /* DIGIY media opt Chez Baptiste Saly 20260830 */\n  .hero-media picture.digiy-hero-picture{display:block;width:100%}\n'''
+              s = s.replace('</style>', css + '</style>', 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Controler le gain
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          png=Path('assets/saly/chez-baptiste-appartement.png')
+          webp=Path('assets/saly/chez-baptiste-appartement.webp')
+          avif=Path('assets/saly/chez-baptiste-appartement.avif')
+          print(f'original={png.stat().st_size} webp={webp.stat().st_size} avif={avif.stat().st_size}')
+          PY
+
+      - name: Publier optimisation
+        run: |
+          set -euo pipefail
+          git config user.name 'DIGIYLYFE Media Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html assets/saly
+          if git diff --cached --quiet; then
+            echo 'Aucun changement a publier.'
+            exit 0
+          fi
+          git commit -m 'Media: optimiser Chez Baptiste Saly en AVIF et WebP'
+          git push
